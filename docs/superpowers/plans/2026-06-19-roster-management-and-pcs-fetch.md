@@ -1370,10 +1370,11 @@ For each rider the owner names:
 1. Resolve it: `python -c "import rider_resolver as rr; print(rr.resolve_rider('<query>'))"`.
 2. If `None`, tell the owner it didn't resolve and ask for another spelling or the `rider/<slug>`. **Never invent a slug.**
 3. Show the resolved `{name, team, slug}` and confirm with the owner before saving.
-4. Append a stint with `from_stage: 1` via `roster_store.add_rider`, then `roster_store.save`.
+4. Append a stint with `from_stage: 1` via `roster_store.add_rider(roster, participant, stint)`, then persist with `roster_store.save(race_id, roster)` (the `race_id` argument is required).
 
-Drive multi-rider entry with a short Python snippet that loops the resolved riders into
-`roster_store`, then `save`, then re-run `show`.
+Drive multi-rider entry with a short Python snippet that `roster_store.load(race_id)`s the
+roster, loops the resolved riders into it via `add_rider`, calls
+`roster_store.save(race_id, roster)`, then re-run `show`.
 
 ## Swapping an injured rider (Option B)
 Ask for: participant, outgoing rider, replacement, and the **effective stage**.
@@ -1382,9 +1383,10 @@ Call `roster_store.swap_rider(roster, participant, out_slug, in_stint, effective
 preserving history.
 
 ## ALWAYS validate before declaring done
-After any change, run `roster_store.validate(roster, total_stages)` (total_stages from
-`races_config.get_race_config(race_id)`). If it returns violations (e.g. "Nate: 4 active
-riders at stage 12"), do NOT save — surface them and fix.
+After any change, run `roster_store.validate(roster, total_stages)` where
+`total_stages = races_config.get_race_config(race_id)["total_stages"]` (the config is a dict;
+extract the field). If it returns violations (e.g. "Nate: 4 active riders at stage 12"), do
+NOT save — surface them and fix.
 
 ## Always show a before/after
 After saving, run `python draft.py show` again and present the diff so the owner can eyeball it.
