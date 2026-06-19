@@ -41,7 +41,7 @@ export default function Standings({ data, expanded, toggle, showMovement }) {
             <div style={{ position: 'relative', display: 'flex', alignItems: 'center', padding: '13px 18px 13px 16px' }}>
               <div style={{ width: 34, flex: 'none', textAlign: 'center' }}>
                 <div style={{ fontSize: 19, fontWeight: 700, color: '#1A1813', fontVariantNumeric: 'tabular-nums', lineHeight: 1 }}>{p.rank}</div>
-                <MovementArrow move={data.teams.find(t => t.name === p.name).move} show={showMovement} />
+                <MovementArrow move={p.rawMove} show={showMovement} />
               </div>
               <div style={{ flex: '1 1 auto', minWidth: 0, paddingLeft: 14 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>

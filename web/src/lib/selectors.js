@@ -11,6 +11,7 @@ export function buildStandingsRows(teams) {
     gap: p.gap,
     gapColorVar: p.leader ? LEADER_VAR : MUTED,
     move: fmtMove(p.move),
+    rawMove: p.move,
     isLeader: p.leader,
     isLast: p.last,
     subline: p.riders.map(r => surname(r.name)).join('  ·  '),

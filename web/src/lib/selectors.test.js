@@ -14,6 +14,7 @@ test('buildStandingsRows builds rows with subline and leader gap color', () => {
   expect(nate.gapColorVar).toBe('var(--accent-ink)')
   expect(nate.subline).toBe('Lipowitz  ·  Almeida  ·  Mas')
   expect(nate.move).toEqual({ label: '▲ 1', color: '#3E8F5F' })
+  expect(rows[0].rawMove).toBe(1)
   expect(rows[5].isLast).toBe(true)
   expect(rows[1].gapColorVar).toBe('#9A968D')
 })

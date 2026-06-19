@@ -19,6 +19,14 @@ test('shows title, leader badge, and six teams', () => {
   expect(screen.getByText('Leader')).toBeInTheDocument()
 })
 
+test('hides movement indicators when showMovement is false', () => {
+  render(<Standings data={sampleData} expanded={{ Nate: true }} toggle={() => {}} showMovement={false} />)
+  // Nate's team movement (fmtMove(1) => '▲ 1') must not render
+  expect(screen.queryByText('▲ 1')).not.toBeInTheDocument()
+  // an expanded rider delta (fmtDelta) must not render either — João Almeida d=1 => '▲1'
+  expect(screen.queryByText('▲1')).not.toBeInTheDocument()
+})
+
 test('leader expanded by default reveals its riders; clicking another expands it', async () => {
   render(<Harness />)
   // Nate open by default -> his rider visible
