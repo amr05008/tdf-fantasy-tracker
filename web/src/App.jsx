@@ -6,6 +6,7 @@ import TabNav from './components/TabNav.jsx'
 import Placeholder from './screens/Placeholder.jsx'
 import Standings from './screens/Standings.jsx'
 import Stage from './screens/Stage.jsx'
+import Team from './screens/Team.jsx'
 
 const TABS = [['Standings', 'standings'], ['Stage', 'stage'], ['Team', 'team'], ['Races', 'races']]
 
@@ -70,7 +71,7 @@ function renderMain(ctx) {
       <TabNav tabs={TABS} active={screen} onSelect={setScreen} />
       {screen === 'standings' && <Standings data={ctx.data} expanded={ctx.expanded} toggle={ctx.toggle} showMovement={ctx.showMovement} />}
       {screen === 'stage' && <Stage data={ctx.data} openRider={ctx.openRider} />}
-      {screen === 'team' && <Placeholder name="team" />}
+      {screen === 'team' && <Team data={ctx.data} team={ctx.team} setTeam={ctx.setTeam} showMovement={ctx.showMovement} openRider={ctx.openRider} openDraft={ctx.openDraft} />}
       {screen === 'races' && <Placeholder name="races" />}
     </div>
   )

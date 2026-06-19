@@ -11,7 +11,7 @@ test('renders brand bar and standings by default', () => {
 test('switching tabs changes the screen and clears sub-screens', async () => {
   render(<App />)
   await userEvent.click(screen.getAllByText('Team')[0])
-  expect(screen.getByText('team screen')).toBeInTheDocument()
+  expect(screen.getByText('Edit your picks')).toBeInTheDocument()
   await userEvent.click(screen.getByText('Races'))
   expect(screen.getByText('races screen')).toBeInTheDocument()
 })
