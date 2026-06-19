@@ -44,6 +44,21 @@ def _fetch_cloudscraper(path: str) -> str:
     return resp.text
 
 
+def _fetch_playwright(path: str) -> str:
+    """Headless-browser fetch that solves the Cloudflare challenge. Lazy import."""
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError as e:
+        raise PCSBlockedError("Playwright not installed; run `pip install playwright && playwright install chromium`") from e
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
+        page.goto(BASE_URL + path.strip("/"), wait_until="networkidle", timeout=60000)
+        html = page.content()
+        browser.close()
+    return html
+
+
 def get_html(path: str, *, max_age_seconds: int = 21600, force: bool = False) -> str:
     """Return trustworthy HTML for a PCS path, or raise PCSBlockedError.
 
@@ -57,9 +72,11 @@ def get_html(path: str, *, max_age_seconds: int = 21600, force: bool = False) ->
 
     html = _fetch_cloudscraper(path)
     if is_challenge(html):
+        html = _fetch_playwright(path)
+    if is_challenge(html):
         raise PCSBlockedError(
-            f"Cloudflare challenge for '{path}'. Tried: cloudscraper. "
-            "Run from a residential network, or enable the Playwright fallback tier."
+            f"Cloudflare challenge for '{path}'. Tried: cloudscraper, Playwright. "
+            "Run from a residential network."
         )
 
     CACHE_DIR.mkdir(exist_ok=True)
