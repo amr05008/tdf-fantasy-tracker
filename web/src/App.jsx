@@ -28,7 +28,12 @@ export default function App() {
   const [showMovement] = useState(true)
 
   const data = useLeagueData(race)
-  const accent = accentForRace(race)
+  // Accent follows the dataset actually on screen, not the selected race id.
+  // In phase 1 useLeagueData ignores `race` and always returns the Tour data,
+  // so theming a non-live race (e.g. Giro) pink over Tour content would be a
+  // misleading half-swap. Deriving from data.meta.raceId keeps theme and
+  // content consistent now, and stays correct once the dataset swaps per race.
+  const accent = accentForRace(data.meta.raceId)
 
   useEffect(() => {
     if (typeof window === 'undefined') return

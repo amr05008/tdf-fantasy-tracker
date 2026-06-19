@@ -15,3 +15,14 @@ test('switching tabs changes the screen and clears sub-screens', async () => {
   await userEvent.click(screen.getByText('Races'))
   expect(screen.getByText('Choose competition')).toBeInTheDocument()
 })
+
+test('accent follows the displayed dataset, not the selected race (no half-swap)', async () => {
+  const { container } = render(<App />)
+  const root = container.firstChild
+  // Tour Yellow accent on load
+  expect(root.style.getPropertyValue('--accent')).toBe('#F2C200')
+  // Selecting Giro must NOT repaint the panel pink while Tour data is still shown
+  await userEvent.click(screen.getByText('Races'))
+  await userEvent.click(screen.getByText("Giro d'Italia 2026"))
+  expect(root.style.getPropertyValue('--accent')).toBe('#F2C200')
+})

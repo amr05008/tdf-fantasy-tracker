@@ -27,5 +27,12 @@ export function surname(n) {
 }
 
 export function ordinal(n) {
-  return n === 1 ? '1st' : n === 2 ? '2nd' : n === 3 ? '3rd' : n + 'th'
+  const rem100 = n % 100
+  if (rem100 >= 11 && rem100 <= 13) return n + 'th'
+  switch (n % 10) {
+    case 1: return n + 'st'
+    case 2: return n + 'nd'
+    case 3: return n + 'rd'
+    default: return n + 'th'
+  }
 }
