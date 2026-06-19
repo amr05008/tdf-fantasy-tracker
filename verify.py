@@ -6,6 +6,8 @@ import sys
 import pcs_fetch
 import pcs_parse
 import scoring
+import roster_store
+import rider_resolver
 from races_config import TEAM_ROSTERS, get_race_config
 
 
@@ -35,6 +37,21 @@ def run_2025_end_to_end() -> dict:
     return {"standings": standings, "teams": teams, "warnings": warnings}
 
 
+def validate_roster_slugs(race_id: str) -> list:
+    roster = roster_store.load(race_id)
+    bad = []
+    seen = set()
+    for participant, stints in roster.items():
+        for stint in stints:
+            slug = stint["slug"]
+            if slug in seen:
+                continue
+            seen.add(slug)
+            if rider_resolver.resolve_rider(slug) is None:
+                bad.append(f"{participant}: {slug} does not resolve")
+    return bad
+
+
 def main() -> int:
     if not preflight():
         return 1
@@ -48,6 +65,16 @@ def main() -> int:
             print(f"   {w}")
     else:
         print("\n✓ All rosters fully resolved against the GC")
+
+    print("\nValidating tdf-2026 roster slugs...")
+    bad = validate_roster_slugs("tdf-2026")
+    if bad:
+        print("⚠ Unresolvable slugs:")
+        for b in bad:
+            print(f"   {b}")
+    else:
+        print("✓ All tdf-2026 roster slugs resolve (or roster is empty)")
+
     return 0
 
 
