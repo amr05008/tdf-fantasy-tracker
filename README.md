@@ -2,6 +2,8 @@
 
 A Streamlit web application for tracking fantasy cycling competition results across multiple Grand Tours with real-time data from procyclingstats.com.
 
+> **New web app (React + Vite) — go-forward UI:** a redesigned, mobile-first frontend lives in [`web/`](web/), deployed on **Vercel** (`tdf-fantasy-tracker.vercel.app`). It currently runs on placeholder data; wiring the real procyclingstats feed is a planned phase-2 step. See [web/README.md](web/README.md). The Streamlit app documented below remains available.
+
 ## Features
 
 - **Multi-Race Support**: Switch between Tour de France, Giro d'Italia, and Vuelta a España

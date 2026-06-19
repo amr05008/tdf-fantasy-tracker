@@ -2,6 +2,17 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Active Redesign — React + Vite SPA (`web/`), 2026
+
+A high-fidelity redesign lives in **`web/`** as a standalone React + Vite single-page app (the go-forward UI; the Streamlit app documented below is unchanged and still deployable). Built from the `design_handoff_tdf2026/` prototype.
+
+- **Run:** `cd web && npm install && npm run dev` (http://localhost:5173)
+- **Test:** `npm test` (Vitest, 37 passing) · `npm run e2e` (Playwright walkthrough)
+- **Build/deploy:** `npm run build` → static `dist/`; deployed on **Vercel** (`tdf-fantasy-tracker.vercel.app`, Vercel root directory = `web`). Repo: `amr05008/tdf-fantasy-tracker`.
+- **Architecture:** `lib/format.js` + `lib/selectors.js` (pure view-models) → thin presentational screens (`screens/*`); all data is read through the single `data/useLeagueData.js` seam. Six screens: Standings, Stage, Team, Races + Draft & RiderProfile sub-screens. Plain JSX, inline styles + CSS custom properties for per-race accent theming.
+- **Data is placeholder-first.** Phase 2 (at race time): a Python generator reusing `api_client.py` + `races_config.py` writes `web/public/data.json`, and `useLeagueData` switches to `fetch('/data.json')`. Movement arrows (`move`/`d`) need a persisted daily GC snapshot to diff. See `web/README.md` and `docs/superpowers/specs/2026-06-18-sunshine-fantasy-tdf2026-redesign-design.md` (§7).
+- **Spec & plan:** `docs/superpowers/specs/2026-06-18-sunshine-fantasy-tdf2026-redesign-design.md` and `docs/superpowers/plans/2026-06-18-sunshine-fantasy-tdf2026-redesign.md`.
+
 ## Project Overview
 
 Fantasy Grand Tours is a Streamlit web application that displays real-time fantasy cycling competition results by fetching data from the procyclingstats API. The app automatically calculates fantasy team scores based on real professional rider performance.
