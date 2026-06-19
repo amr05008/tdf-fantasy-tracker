@@ -9,53 +9,7 @@ from procyclingstats import Race, Stage
 import streamlit as st
 from typing import Dict, List, Tuple, Optional
 from team_config import TEAM_ROSTERS, RACE_CONFIG
-
-
-def time_str_to_seconds(time_str: str) -> int:
-    """
-    Convert time string (H:MM:SS or HH:MM:SS) to seconds
-
-    Args:
-        time_str: Time in format "H:MM:SS" or "HH:MM:SS"
-
-    Returns:
-        Total seconds as integer
-    """
-    try:
-        if not time_str or time_str == "0:00:00":
-            return 0
-
-        parts = time_str.split(':')
-        if len(parts) != 3:
-            return 0
-
-        hours = int(parts[0])
-        minutes = int(parts[1])
-        seconds = int(parts[2])
-
-        return hours * 3600 + minutes * 60 + seconds
-    except Exception:
-        return 0
-
-
-def seconds_to_time_str(seconds: int) -> str:
-    """
-    Convert seconds to time string format
-
-    Args:
-        seconds: Total seconds
-
-    Returns:
-        Time string in format "H:MM:SS"
-    """
-    if seconds == 0:
-        return "0:00:00"
-
-    hours = seconds // 3600
-    minutes = (seconds % 3600) // 60
-    secs = seconds % 60
-
-    return f"{hours}:{minutes:02d}:{secs:02d}"
+from pcs_time import time_str_to_seconds, seconds_to_time_str
 
 
 @st.cache_data(ttl=300)  # Cache for 5 minutes
