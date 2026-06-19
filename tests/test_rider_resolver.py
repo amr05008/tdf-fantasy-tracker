@@ -1,9 +1,10 @@
 import rider_resolver as rr
 
 
-def test_slugify_strips_accents_and_punct():
+def test_slugify_handles_accents_and_punctuation():
     assert rr.slugify_name("Tadej Pogačar") == "tadej-pogacar"
-    assert rr.slugify_name("Ben O'Connor") == "ben-oconnor"
+    # Apostrophes follow PCS convention: O'Connor -> o-connor (separator, not deleted)
+    assert rr.slugify_name("Ben O'Connor") == "ben-o-connor"
     assert rr.slugify_name("  Jonas   Vingegaard ") == "jonas-vingegaard"
 
 
