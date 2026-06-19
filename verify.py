@@ -13,7 +13,9 @@ from races_config import TEAM_ROSTERS, get_race_config
 
 def preflight() -> bool:
     try:
-        pcs_fetch.get_html("rider/tadej-pogacar")
+        # force=True: a connectivity check must hit the network, never the 6h cache,
+        # or it will report "reachable" while PCS is actually blocked.
+        pcs_fetch.get_html("rider/tadej-pogacar", force=True)
         print("✓ PCS reachable")
         return True
     except pcs_fetch.PCSBlockedError as e:

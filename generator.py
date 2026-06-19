@@ -14,9 +14,19 @@ def generate_standings(race_id: str, stage: int) -> dict:
     active = roster_store.active_riders(roster, stage)
     gc = pcs_parse.fetch_stage_gc(_race_url(race_id), stage)
     standings = scoring.compute_standings(active, gc)
+    # Surface teams with an unscored rider. A rider missing from the GC (DNF/DNS or
+    # a bad slug) is dropped from the team total, which LOWERS it and inflates the
+    # team's rank — so a silent miss reads as "winning". Callers (and the eventual
+    # data.json/UI) must show this, not just the standings.
+    warnings = [
+        f"{r['name']}: only {r['riders_counted']}/{r['total_riders']} riders scored"
+        f" — missing rider(s) lower the team total and inflate its rank"
+        for r in standings if r["riders_counted"] < r["total_riders"]
+    ]
     return {
         "race_id": race_id,
         "stage": stage,
         "standings": standings,
         "teams": scoring.format_for_app(standings),
+        "warnings": warnings,
     }
