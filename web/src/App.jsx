@@ -5,6 +5,7 @@ import BrandBar from './components/BrandBar.jsx'
 import TabNav from './components/TabNav.jsx'
 import Placeholder from './screens/Placeholder.jsx'
 import Standings from './screens/Standings.jsx'
+import Stage from './screens/Stage.jsx'
 
 const TABS = [['Standings', 'standings'], ['Stage', 'stage'], ['Team', 'team'], ['Races', 'races']]
 
@@ -68,7 +69,7 @@ function renderMain(ctx) {
       <BrandBar />
       <TabNav tabs={TABS} active={screen} onSelect={setScreen} />
       {screen === 'standings' && <Standings data={ctx.data} expanded={ctx.expanded} toggle={ctx.toggle} showMovement={ctx.showMovement} />}
-      {screen === 'stage' && <Placeholder name="stage" />}
+      {screen === 'stage' && <Stage data={ctx.data} openRider={ctx.openRider} />}
       {screen === 'team' && <Placeholder name="team" />}
       {screen === 'races' && <Placeholder name="races" />}
     </div>
