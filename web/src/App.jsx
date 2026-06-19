@@ -4,6 +4,7 @@ import { accentForRace, themeVars } from './theme.js'
 import BrandBar from './components/BrandBar.jsx'
 import TabNav from './components/TabNav.jsx'
 import Placeholder from './screens/Placeholder.jsx'
+import Draft from './screens/Draft.jsx'
 import Standings from './screens/Standings.jsx'
 import Stage from './screens/Stage.jsx'
 import Team from './screens/Team.jsx'
@@ -49,7 +50,7 @@ export default function App() {
   const ctx = { data, screen, sub, expanded, team, race, draftPicks, showMovement, ...handlers }
 
   let body
-  if (sub === 'draft') body = <Placeholder name="draft" />
+  if (sub === 'draft') body = <Draft data={data} draftPicks={draftPicks} addPick={addPick} removePick={removePick} closeSub={closeSub} />
   else if (sub && sub.type === 'rider') body = <Placeholder name="rider" />
   else body = renderMain(ctx)
 
