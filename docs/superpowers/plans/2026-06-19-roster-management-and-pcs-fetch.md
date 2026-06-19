@@ -424,9 +424,15 @@ def parse_stage_gc(html: str) -> dict:
 
 
 def parse_rider(slug: str, html: str) -> dict:
-    """Return {slug, name, team} from a rider page."""
+    """Return {slug, name, team} from a rider page.
+
+    The procyclingstats Rider class has no current-team method; the current
+    team is the most recent season in teams_history().
+    """
     rider = Rider(slug, html=html, update_html=False)
-    return {"slug": slug, "name": rider.name(), "team": rider.team_name()}
+    history = rider.teams_history() or []
+    team = max(history, key=lambda t: t["season"])["team_name"] if history else ""
+    return {"slug": slug, "name": rider.name(), "team": team}
 
 
 def fetch_stage_gc(race_url: str, stage_number: int) -> dict:
@@ -444,7 +450,7 @@ def fetch_rider(slug: str) -> dict:
 - [ ] **Step 5: Run test to verify it passes**
 
 Run: `. .venv/bin/activate && pytest tests/test_pcs_parse.py -v`
-Expected: PASS (2 passed). If `Rider.team_name()` is unavailable for a retired/edge rider, that does not affect Pogačar; keep the assertion.
+Expected: PASS (2 passed). `parse_rider` reads the current team from the most recent `teams_history()` season; for Pogačar this is "UAE Team Emirates - XRG".
 
 - [ ] **Step 6: Commit (fixtures included so tests are reproducible offline)**
 
