@@ -6,7 +6,7 @@ import sys
 import pcs_fetch
 import pcs_parse
 import scoring
-from races_config import get_team_rosters, get_race_config
+from races_config import TEAM_ROSTERS, get_race_config
 
 
 def preflight() -> bool:
@@ -21,7 +21,9 @@ def preflight() -> bool:
 
 def run_2025_end_to_end() -> dict:
     race = get_race_config("tdf-2025")
-    rosters = get_team_rosters("tdf-2025")  # {participant: [slug,...]}
+    # Static committed rosters — NOT get_team_rosters(), which routes through the
+    # Streamlit-/Google-Sheets-coupled loader and pollutes this pure pipeline.
+    rosters = TEAM_ROSTERS["tdf-2025"]  # {participant: [slug,...]}
     stage = race["total_stages"]
     gc = pcs_parse.fetch_stage_gc(race["race_url"], stage)
     standings = scoring.compute_standings(rosters, gc)
