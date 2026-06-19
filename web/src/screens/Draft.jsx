@@ -44,7 +44,7 @@ export default function Draft({ data, draftPicks, addPick, removePick, closeSub 
         {view.pool.map(r => (
           <div key={r.name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '11px 4px', borderTop: '1px solid #F2F0EA' }}>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div onClick={() => !r.disabled && addPick(r.name)} style={{ fontSize: 14, fontWeight: 600, color: '#1A1813', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', cursor: r.disabled ? 'default' : 'pointer' }}>{r.name}</div>
+              <div style={{ fontSize: 14, fontWeight: 600, color: '#1A1813', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{r.name}</div>
               <div style={{ fontSize: 11, color: '#9A968D', marginTop: 1 }}>{r.team}</div>
             </div>
             <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '.04em', textTransform: 'uppercase', color: '#8C8881', background: '#F2F0EA', padding: '3px 8px', borderRadius: 999, flex: 'none' }}>{r.role}</span>

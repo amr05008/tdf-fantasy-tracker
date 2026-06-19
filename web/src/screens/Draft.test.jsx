@@ -20,7 +20,7 @@ test('shows two filled slots, one empty, and the pick count', () => {
 
 test('adding a third rider fills the slot, gates further adds, and shows Save team', async () => {
   render(<Harness />)
-  await userEvent.click(screen.getByText('Egan Bernal'))
+  await userEvent.click(screen.getByRole('button', { name: 'add Egan Bernal' }))
   expect(screen.getByText('3 / 3 picked')).toBeInTheDocument()
   expect(screen.getByText('Save team')).toBeInTheDocument()
   expect(screen.queryByText('Empty — add a rider below')).not.toBeInTheDocument()
