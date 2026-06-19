@@ -5,12 +5,12 @@ import App from './App.jsx'
 test('renders brand bar and standings by default', () => {
   render(<App />)
   expect(screen.getByText('Sunshine Fantasy')).toBeInTheDocument()
-  expect(screen.getByText('standings screen')).toBeInTheDocument()
+  expect(screen.getByText('Tour de France 2026')).toBeInTheDocument()
 })
 
 test('switching tabs changes the screen and clears sub-screens', async () => {
   render(<App />)
-  await userEvent.click(screen.getByText('Team'))
+  await userEvent.click(screen.getAllByText('Team')[0])
   expect(screen.getByText('team screen')).toBeInTheDocument()
   await userEvent.click(screen.getByText('Races'))
   expect(screen.getByText('races screen')).toBeInTheDocument()

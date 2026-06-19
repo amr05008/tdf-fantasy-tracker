@@ -4,6 +4,7 @@ import { accentForRace, themeVars } from './theme.js'
 import BrandBar from './components/BrandBar.jsx'
 import TabNav from './components/TabNav.jsx'
 import Placeholder from './screens/Placeholder.jsx'
+import Standings from './screens/Standings.jsx'
 
 const TABS = [['Standings', 'standings'], ['Stage', 'stage'], ['Team', 'team'], ['Races', 'races']]
 
@@ -66,7 +67,7 @@ function renderMain(ctx) {
     <div>
       <BrandBar />
       <TabNav tabs={TABS} active={screen} onSelect={setScreen} />
-      {screen === 'standings' && <Placeholder name="standings" />}
+      {screen === 'standings' && <Standings data={ctx.data} expanded={ctx.expanded} toggle={ctx.toggle} showMovement={ctx.showMovement} />}
       {screen === 'stage' && <Placeholder name="stage" />}
       {screen === 'team' && <Placeholder name="team" />}
       {screen === 'races' && <Placeholder name="races" />}
