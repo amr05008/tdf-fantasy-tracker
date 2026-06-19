@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{ box-sizing:border-box; }
+  body{ margin:0; }
+  .noscroll::-webkit-scrollbar{ display:none; }
+</style>
+</helmet>
+
+<div style="--accent:{{ accentColor }}; --accent-tint:{{ accentTint }}; --accent-border:{{ accentBorder }}; --accent-ink:{{ accentInk }}; min-height:100vh; box-sizing:border-box; padding:40px 20px 56px; background:#E7E5DF; font-family:'Archivo',-apple-system,BlinkMacSystemFont,sans-serif; display:flex; justify-content:center;">
+  <div style="width:100%; max-width:460px;">
+    <div style="background:#FCFBF8; border:1px solid #E4E1D8; border-radius:20px; box-shadow:0 6px 28px rgba(40,38,30,.10); overflow:hidden;">
+
+      <!-- ===================== SUB-SCREEN: DRAFT ===================== -->
+      <sc-if value="{{ showDraft }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="display:flex; align-items:center; padding:15px 18px; border-bottom:1px solid #ECEAE4;">
+            <div onClick="{{ closeSub }}" style="cursor:pointer; font-size:13px; font-weight:600; color:#6E6A62; display:flex; align-items:center; gap:4px;"><span style="font-size:17px; line-height:1;">‹</span> Standings</div>
+          </div>
+          <div style="padding:18px 18px 8px;">
+            <div style="font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:#A8A49C;">Tour de France 2026</div>
+            <div style="font-size:24px; font-weight:700; color:#1A1813; margin-top:6px; letter-spacing:-.015em;">Edit your three riders</div>
+            <div style="font-size:12px; color:#9A968D; margin-top:6px;">{{ draftNote }}</div>
+          </div>
+
+          <div style="padding:8px 16px 4px;">
+            <sc-for list="{{ draftSlots }}" as="s" hint-placeholder-count="3">
+              <sc-if value="{{ s.filled }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex; align-items:center; gap:12px; background:#FFFFFF; border:1px solid #E4E1D8; border-radius:11px; padding:12px 13px; margin-bottom:9px;">
+                  <span style="width:26px; height:26px; border-radius:7px; background:var(--accent); color:var(--accent-ink); font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center; flex:none;">{{ s.slotNo }}</span>
+                  <div style="flex:1; min-width:0;">
+                    <div style="font-size:14.5px; font-weight:600; color:#1A1813; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ s.name }}</div>
+                    <div style="font-size:11px; color:#9A968D; margin-top:1px;">{{ s.team }} · {{ s.role }}</div>
+                  </div>
+                  <div onClick="{{ s.onRemove }}" style="cursor:pointer; width:26px; height:26px; border-radius:50%; background:#F2F0EA; color:#8C8881; font-size:15px; display:flex; align-items:center; justify-content:center; flex:none;">×</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ s.empty }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex; align-items:center; gap:12px; border:1.5px dashed #D8D4CA; border-radius:11px; padding:12px 13px; margin-bottom:9px;">
+                  <span style="width:26px; height:26px; border-radius:7px; background:#F2F0EA; color:#B4B0A6; font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center; flex:none;">{{ s.slotNo }}</span>
+                  <span style="font-size:13.5px; color:#B4B0A6;">Empty — add a rider below</span>
+                </div>
+              </sc-if>
+            </sc-for>
+          </div>
+
+          <div style="padding:8px 18px 6px; display:flex; align-items:center; justify-content:space-between; border-top:1px solid #ECEAE4; margin-top:6px;">
+            <span style="font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#A8A49C;">Available riders</span>
+            <span style="font-size:11px; font-weight:600; color:{{ draftCountColor }};">{{ draftCount }} / 3 picked</span>
+          </div>
+
+          <div style="padding:2px 16px 16px;">
+            <sc-for list="{{ draftPool }}" as="r" hint-placeholder-count="8">
+              <div style="display:flex; align-items:center; gap:12px; padding:11px 4px; border-top:1px solid #F2F0EA;">
+                <div style="flex:1; min-width:0;">
+                  <div style="font-size:14px; font-weight:600; color:#1A1813; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ r.name }}</div>
+                  <div style="font-size:11px; color:#9A968D; margin-top:1px;">{{ r.team }}</div>
+                </div>
+                <span style="font-size:10px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:#8C8881; background:#F2F0EA; padding:3px 8px; border-radius:999px; flex:none;">{{ r.role }}</span>
+                <div onClick="{{ r.onAdd }}" style="cursor:pointer; width:30px; height:30px; border-radius:50%; flex:none; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:600; border:1px solid {{ r.addBorder }}; color:{{ r.addColor }}; background:{{ r.addBg }};">+</div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="padding:4px 16px 18px;">
+            <div onClick="{{ closeSub }}" style="cursor:pointer; text-align:center; padding:14px; border-radius:11px; font-size:14px; font-weight:700; background:{{ confirmBg }}; color:{{ confirmColor }};">{{ confirmLabel }}</div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===================== SUB-SCREEN: RIDER PROFILE ===================== -->
+      <sc-if value="{{ showRider }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="display:flex; align-items:center; padding:15px 18px; border-bottom:1px solid #ECEAE4;">
+            <div onClick="{{ closeSub }}" style="cursor:pointer; font-size:13px; font-weight:600; color:#6E6A62; display:flex; align-items:center; gap:4px;"><span style="font-size:17px; line-height:1;">‹</span> Back</div>
+          </div>
+          <div style="padding:20px 18px 6px;">
+            <div style="font-size:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#A8A49C;">{{ rp.role }} · {{ rp.nat }} · {{ rp.age }}</div>
+            <div style="font-size:27px; font-weight:700; color:#1A1813; margin-top:6px; letter-spacing:-.02em;">{{ rp.name }}</div>
+            <div style="font-size:13px; color:#6E6A62; margin-top:3px;">{{ rp.team }}</div>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; padding:16px 18px 6px;">
+            <div style="background:#FFFFFF; border:1px solid #E8E5DD; border-radius:11px; padding:12px;">
+              <div style="font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:#A8A49C;">GC rank</div>
+              <div style="font-size:21px; font-weight:800; color:#1A1813; margin-top:5px; font-variant-numeric:tabular-nums;">{{ rp.gcRank }}</div>
+            </div>
+            <div style="background:#FFFFFF; border:1px solid #E8E5DD; border-radius:11px; padding:12px;">
+              <div style="font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:#A8A49C;">GC time</div>
+              <div style="font-size:17px; font-weight:700; color:#1A1813; margin-top:7px; font-variant-numeric:tabular-nums;">{{ rp.gcTime }}</div>
+            </div>
+            <div style="background:#FFFFFF; border:1px solid #E8E5DD; border-radius:11px; padding:12px;">
+              <div style="font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:#A8A49C;">To leader</div>
+              <div style="font-size:17px; font-weight:700; color:#1A1813; margin-top:7px; font-variant-numeric:tabular-nums;">{{ rp.gapGC }}</div>
+            </div>
+          </div>
+          <div style="padding:14px 18px 6px;">
+            <div style="font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#B4B0A6; margin-bottom:9px;">Recent form — last 3 stages</div>
+            <div style="display:flex; gap:9px;">
+              <sc-for list="{{ rp.form }}" as="f" hint-placeholder-count="3">
+                <div style="flex:1; background:#F4F2EC; border-radius:10px; padding:11px; text-align:center;">
+                  <div style="font-size:9px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:#A8A49C;">{{ f.label }}</div>
+                  <div style="font-size:18px; font-weight:800; color:#1A1813; margin-top:4px; font-variant-numeric:tabular-nums;">{{ f.place }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="margin:16px 18px 20px; padding:13px 15px; background:var(--accent-tint); border:1px solid var(--accent-border); border-radius:11px; display:flex; align-items:center; gap:9px;">
+            <span style="width:9px; height:9px; border-radius:50%; background:var(--accent); flex:none;"></span>
+            <span style="font-size:13px; font-weight:600; color:#5E5A50;">{{ rp.owned }}</span>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===================== MAIN (TABBED) ===================== -->
+      <sc-if value="{{ showMain }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <div style="display:flex; align-items:center; justify-content:space-between; padding:16px 18px 0;">
+            <span style="font-size:12px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:#1A1813;">Sunshine Fantasy</span>
+            <span style="width:20px; height:13px; border-radius:2px; background:var(--accent); display:inline-block;" title="Leader jersey"></span>
+          </div>
+
+          <div class="noscroll" style="display:flex; gap:22px; padding:14px 18px 0; border-bottom:1px solid #ECEAE4; overflow-x:auto;">
+            <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+              <div onClick="{{ t.onClick }}" style="position:relative; padding-bottom:11px; cursor:pointer; font-size:13.5px; font-weight:600; white-space:nowrap; color:{{ t.color }};">
+                {{ t.label }}
+                <sc-if value="{{ t.active }}" hint-placeholder-val="{{ false }}"><div style="position:absolute; left:0; right:0; bottom:-1px; height:2px; background:#1A1813; border-radius:2px;"></div></sc-if>
+              </div>
+            </sc-for>
+          </div>
+
+          <!-- SCREEN: STANDINGS -->
+          <sc-if value="{{ isStandings }}" hint-placeholder-val="{{ true }}">
+            <div>
+              <div style="padding:18px 18px 16px;">
+                <div style="display:flex; justify-content:space-between; align-items:baseline;">
+                  <span style="font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:#A8A49C;">The Sunshine League</span>
+                  <span style="font-size:10px; font-weight:600; letter-spacing:.04em; color:#A8A49C;">Updated {{ updated }}</span>
+                </div>
+                <div style="font-size:25px; font-weight:700; color:#1A1813; margin-top:7px; letter-spacing:-.015em;">Tour de France 2026</div>
+                <div style="margin-top:15px;">
+                  <div style="display:flex; justify-content:space-between; align-items:center; font-size:11px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:#8C8881;">
+                    <span>Stage {{ stageNum }} of {{ totalStages }}</span>
+                    <span>{{ progressPct }} done</span>
+                  </div>
+                  <div style="height:4px; background:#ECEAE4; border-radius:2px; margin-top:7px; overflow:hidden;">
+                    <div style="height:100%; width:52%; background:#1A1813; border-radius:2px;"></div>
+                  </div>
+                </div>
+                <div style="margin-top:14px; display:flex; gap:9px; align-items:flex-start; background:var(--accent-tint); border:1px solid var(--accent-border); border-radius:9px; padding:9px 11px;">
+                  <span style="width:9px; height:9px; border-radius:50%; background:var(--accent); flex:none; margin-top:3px;"></span>
+                  <span style="font-size:12px; color:#5E5A50; line-height:1.4;">{{ recap }}</span>
+                </div>
+              </div>
+
+              <div style="display:flex; align-items:center; padding:0 18px 8px; font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#B4B0A6;">
+                <span style="width:34px; text-align:center;">#</span>
+                <span style="flex:1; padding-left:14px;">Team</span>
+                <span>Total time</span>
+              </div>
+
+              <sc-for list="{{ teams }}" as="p" hint-placeholder-count="6">
+                <div style="border-top:1px solid #ECEAE4;">
+                  <div onClick="{{ p.toggle }}" style="position:relative; cursor:pointer; overflow:hidden;">
+                    <sc-if value="{{ p.isLeader }}" hint-placeholder-val="{{ false }}"><div style="position:absolute; inset:0; background:var(--accent-tint);"></div></sc-if>
+                    <sc-if value="{{ p.isLeader }}" hint-placeholder-val="{{ false }}"><div style="position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--accent);"></div></sc-if>
+                    <div style="position:relative; display:flex; align-items:center; padding:13px 18px 13px 16px;">
+                      <div style="width:34px; flex:none; text-align:center;">
+                        <div style="font-size:19px; font-weight:700; color:#1A1813; font-variant-numeric:tabular-nums; line-height:1;">{{ p.rank }}</div>
+                        <sc-if value="{{ showMovement }}" hint-placeholder-val="{{ true }}"><div style="font-size:10px; font-weight:700; letter-spacing:.02em; margin-top:3px; color:{{ p.moveColor }};">{{ p.moveLabel }}</div></sc-if>
+                      </div>
+                      <div style="flex:1 1 auto; min-width:0; padding-left:14px;">
+                        <div style="display:flex; align-items:center; gap:7px;">
+                          <span style="font-size:17px; font-weight:600; color:#1A1813;">{{ p.name }}</span>
+                          <sc-if value="{{ p.isLeader }}" hint-placeholder-val="{{ false }}"><span style="font-size:8px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink); background:var(--accent); padding:2px 5px; border-radius:3px;">Yellow Jersey</span></sc-if>
+                          <sc-if value="{{ p.isLast }}" hint-placeholder-val="{{ false }}"><span style="font-size:14px;" title="Lanterne rouge">🐼</span></sc-if>
+                        </div>
+                        <div style="font-size:11px; color:#9A968D; margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ p.subline }}</div>
+                      </div>
+                      <div style="text-align:right; flex:none; padding-left:10px;">
+                        <div style="font-size:18px; font-weight:700; color:#1A1813; font-variant-numeric:tabular-nums; letter-spacing:-.01em; line-height:1.1;">{{ p.totalTime }}</div>
+                        <div style="font-size:12px; font-weight:600; font-variant-numeric:tabular-nums; margin-top:2px; color:{{ p.gapColor }};">{{ p.gap }}</div>
+                      </div>
+                      <div style="width:18px; flex:none; text-align:center; color:#C2BEB4; font-size:11px; padding-left:4px;">{{ p.chevron }}</div>
+                    </div>
+                  </div>
+                  <sc-if value="{{ p.expanded }}" hint-placeholder-val="{{ false }}">
+                    <div style="padding:2px 18px 14px 64px; background:#FFFFFF;">
+                      <sc-for list="{{ p.riders }}" as="r" hint-placeholder-count="3">
+                        <div style="display:flex; align-items:center; gap:10px; padding:7px 0; border-top:1px solid #F2F0EA;">
+                          <span style="font-size:11px; font-weight:700; color:#B4B0A6; width:26px; font-variant-numeric:tabular-nums;">{{ r.gcLabel }}</span>
+                          <span style="flex:1; font-size:13.5px; color:#3A382F; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ r.name }}</span>
+                          <sc-if value="{{ showMovement }}" hint-placeholder-val="{{ true }}"><span style="font-size:11px; font-weight:600; width:30px; text-align:right; color:{{ r.deltaColor }};">{{ r.deltaLabel }}</span></sc-if>
+                          <span style="font-size:13px; color:#6E6A62; font-variant-numeric:tabular-nums; width:70px; text-align:right;">{{ r.time }}</span>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-for>
+
+              <div style="padding:13px 18px; border-top:1px solid #ECEAE4; font-size:10.5px; color:#A8A49C; line-height:1.5;">
+                Score = sum of your three riders' GC times. Lowest total wins. Data via procyclingstats.
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- SCREEN: STAGE -->
+          <sc-if value="{{ isStage }}" hint-placeholder-val="{{ false }}">
+            <div>
+              <div style="padding:18px 18px 14px;">
+                <div style="font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#A8A49C;">Stage {{ stageNum }} · {{ stage.date }}</div>
+                <div style="font-size:23px; font-weight:700; color:#1A1813; margin-top:6px; letter-spacing:-.015em; line-height:1.15;">{{ stage.route }}</div>
+                <div style="font-size:12.5px; color:#6E6A62; margin-top:6px;">{{ stage.type }} · {{ stage.km }}</div>
+              </div>
+
+              <div style="padding:0 16px;">
+                <div style="display:flex; align-items:center; gap:13px; background:var(--accent-tint); border:1px solid var(--accent-border); border-radius:13px; padding:14px;">
+                  <div style="width:42px; height:42px; border-radius:10px; background:var(--accent); color:var(--accent-ink); display:flex; align-items:center; justify-content:center; font-size:20px; flex:none;">🏆</div>
+                  <div style="flex:1; min-width:0;">
+                    <div style="font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink);">Stage winner</div>
+                    <div style="font-size:16px; font-weight:700; color:#1A1813; margin-top:2px;">{{ stage.winner }}</div>
+                    <div style="font-size:11.5px; color:#7A7568; margin-top:1px;">{{ stage.winnerTeam }}</div>
+                  </div>
+                  <div style="font-size:15px; font-weight:700; color:#1A1813; font-variant-numeric:tabular-nums; flex:none;">{{ stage.winnerTime }}</div>
+                </div>
+              </div>
+
+              <div style="padding:20px 18px 6px;">
+                <div style="font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#B4B0A6;">League shake-up</div>
+              </div>
+              <div style="padding:0 18px 6px;">
+                <sc-for list="{{ movers }}" as="m" hint-placeholder-count="4">
+                  <div style="display:flex; align-items:center; gap:11px; padding:10px 0; border-top:1px solid #F2F0EA;">
+                    <span style="font-size:13px; font-weight:700; width:34px; color:{{ m.color }};">{{ m.move }}</span>
+                    <span style="font-size:14.5px; font-weight:600; color:#1A1813; width:66px;">{{ m.name }}</span>
+                    <span style="flex:1; font-size:12.5px; color:#6E6A62;">{{ m.note }}</span>
+                  </div>
+                </sc-for>
+              </div>
+
+              <div style="padding:18px 18px 6px;">
+                <div style="font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#B4B0A6;">Your riders today</div>
+              </div>
+              <div style="padding:0 16px 18px;">
+                <sc-for list="{{ yourToday }}" as="r" hint-placeholder-count="3">
+                  <div onClick="{{ r.onOpen }}" style="display:flex; align-items:center; gap:12px; background:#FFFFFF; border:1px solid #E8E5DD; border-radius:11px; padding:12px 13px; margin-bottom:9px; cursor:pointer;">
+                    <span style="width:34px; text-align:center; font-size:15px; font-weight:800; color:#1A1813; font-variant-numeric:tabular-nums; flex:none;">{{ r.place }}</span>
+                    <div style="flex:1; min-width:0;">
+                      <div style="font-size:14.5px; font-weight:600; color:#1A1813; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ r.name }}</div>
+                      <div style="font-size:11px; color:#9A968D; margin-top:1px;">{{ r.note }}</div>
+                    </div>
+                    <span style="font-size:13px; color:#6E6A62; font-variant-numeric:tabular-nums; flex:none;">{{ r.gap }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- SCREEN: TEAM -->
+          <sc-if value="{{ isTeam }}" hint-placeholder-val="{{ false }}">
+            <div>
+              <div class="noscroll" style="display:flex; gap:7px; overflow-x:auto; padding:14px 16px 4px; scrollbar-width:none;">
+                <sc-for list="{{ teamChips }}" as="c" hint-placeholder-count="6">
+                  <div onClick="{{ c.onClick }}" style="flex:none; padding:7px 13px; border-radius:999px; cursor:pointer; font-size:13px; font-weight:600; border:1px solid {{ c.border }}; background:{{ c.bg }}; color:{{ c.color }};">{{ c.name }}</div>
+                </sc-for>
+              </div>
+
+              <div style="padding:14px 18px 4px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <span style="font-size:23px; font-weight:700; color:#1A1813; letter-spacing:-.01em;">{{ selTeam.name }}</span>
+                  <sc-if value="{{ selTeam.isYou }}" hint-placeholder-val="{{ false }}"><span style="font-size:8px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:#FFFFFF; background:#1A1813; padding:2px 6px; border-radius:3px;">You</span></sc-if>
+                  <sc-if value="{{ selTeam.isLeader }}" hint-placeholder-val="{{ false }}"><span style="font-size:8px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink); background:var(--accent); padding:2px 6px; border-radius:3px;">Yellow Jersey</span></sc-if>
+                  <sc-if value="{{ selTeam.isLast }}" hint-placeholder-val="{{ false }}"><span style="font-size:15px;" title="Lanterne rouge">🐼</span></sc-if>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:12px; margin-top:7px;">
+                  <span style="font-size:24px; font-weight:700; color:#1A1813; font-variant-numeric:tabular-nums; letter-spacing:-.01em;">{{ selTeam.total }}</span>
+                  <span style="font-size:13px; font-weight:600; color:{{ selTeam.gapColor }};">{{ selTeam.gapLine }}</span>
+                </div>
+                <div style="font-size:12px; color:#9A968D; margin-top:5px;">{{ selTeam.standingLine }}</div>
+              </div>
+
+              <div style="padding:12px 16px 6px;">
+                <sc-for list="{{ selTeam.riders }}" as="r" hint-placeholder-count="3">
+                  <div onClick="{{ r.onOpen }}" style="background:#FFFFFF; border:1px solid #E8E5DD; border-radius:12px; padding:13px 14px; margin-bottom:10px; cursor:pointer;">
+                    <div style="display:flex; align-items:center; gap:13px;">
+                      <div style="width:44px; height:44px; border-radius:10px; background:#F4F2EC; display:flex; flex-direction:column; align-items:center; justify-content:center; flex:none;">
+                        <span style="font-size:8px; font-weight:700; letter-spacing:.06em; color:#A8A49C;">GC</span>
+                        <span style="font-size:18px; font-weight:800; color:#1A1813; line-height:1; font-variant-numeric:tabular-nums;">{{ r.gcNum }}</span>
+                      </div>
+                      <div style="flex:1; min-width:0;">
+                        <div style="font-size:15px; font-weight:600; color:#1A1813; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ r.name }}</div>
+                        <div style="font-size:11px; color:#9A968D; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ r.proTeam }}</div>
+                      </div>
+                      <div style="text-align:right; flex:none;">
+                        <div style="font-size:15px; font-weight:700; color:#1A1813; font-variant-numeric:tabular-nums;">{{ r.time }}</div>
+                        <div style="font-size:11.5px; color:#9A968D; font-variant-numeric:tabular-nums; margin-top:2px;">{{ r.gapGC }}</div>
+                      </div>
+                    </div>
+                    <sc-if value="{{ showMovement }}" hint-placeholder-val="{{ true }}">
+                      <div style="display:flex; align-items:center; gap:8px; margin-top:11px; padding-top:10px; border-top:1px solid #F2F0EA;">
+                        <span style="font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:#B4B0A6;">Today</span>
+                        <span style="font-size:12.5px; font-weight:600; color:{{ r.todayColor }};">{{ r.todayLabel }}</span>
+                      </div>
+                    </sc-if>
+                  </div>
+                </sc-for>
+              </div>
+
+              <sc-if value="{{ selTeam.isYou }}" hint-placeholder-val="{{ false }}">
+                <div style="padding:0 16px 18px;">
+                  <div onClick="{{ openDraft }}" style="cursor:pointer; text-align:center; padding:13px; border-radius:11px; font-size:13.5px; font-weight:700; color:#1A1813; background:#FFFFFF; border:1px solid #D8D4CA;">Edit your picks</div>
+                </div>
+              </sc-if>
+            </div>
+          </sc-if>
+
+          <!-- SCREEN: RACES -->
+          <sc-if value="{{ isRaces }}" hint-placeholder-val="{{ false }}">
+            <div>
+              <div style="padding:16px 18px 6px;">
+                <div style="font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:#A8A49C;">Choose competition</div>
+              </div>
+              <div style="padding:4px 16px 18px;">
+                <sc-for list="{{ races }}" as="rc" hint-placeholder-count="4">
+                  <div onClick="{{ rc.onClick }}" style="display:flex; align-items:center; gap:13px; background:#FFFFFF; border:1px solid {{ rc.border }}; border-radius:12px; padding:14px; margin-bottom:10px; cursor:pointer;">
+                    <span style="width:14px; height:14px; border-radius:50%; flex:none; background:{{ rc.dot }};"></span>
+                    <div style="flex:1; min-width:0;">
+                      <div style="display:flex; align-items:center; gap:7px;">
+                        <span style="font-size:15px; font-weight:700; color:#1A1813; white-space:nowrap;">{{ rc.name }}</span>
+                        <sc-if value="{{ rc.viewing }}" hint-placeholder-val="{{ false }}"><span style="font-size:8px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--accent-ink); background:var(--accent); padding:2px 5px; border-radius:3px;">Viewing</span></sc-if>
+                      </div>
+                      <div style="font-size:11.5px; color:#9A968D; margin-top:3px;">{{ rc.dates }} · {{ rc.stages }} stages</div>
+                    </div>
+                    <div style="text-align:right; flex:none;">
+                      <span style="font-size:9.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; padding:3px 8px; border-radius:999px; background:{{ rc.badgeBg }}; color:{{ rc.badgeColor }};">{{ rc.status }}</span>
+                      <div style="font-size:11px; color:#9A968D; margin-top:6px;">{{ rc.note }}</div>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+        </div>
+      </sc-if>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:500,&quot;height&quot;:1180},&quot;accent&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Tour Yellow&quot;,&quot;Giro Pink&quot;,&quot;Vuelta Red&quot;],&quot;default&quot;:&quot;Tour Yellow&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showMovement&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { screen:'standings', sub:null, expanded:{ 'Nate':true }, team:'Aaron', race:'tdf-2026',
+    draftPicks:['Tadej Pogačar','Santiago Buitrago'] };
+
+  setScreen(s){ this.setState({ screen:s, sub:null }); }
+  toggle(name){ this.setState(s => ({ expanded:{ ...s.expanded, [name]: !s.expanded[name] } })); }
+  setTeam(name){ this.setState({ team:name }); }
+  setRace(id){ this.setState({ race:id }); }
+  openDraft(){ this.setState({ sub:'draft' }); }
+  openRider(name){ this.setState({ sub:{ type:'rider', name } }); }
+  closeSub(){ this.setState({ sub:null }); }
+  addPick(name){ this.setState(s => s.draftPicks.length >= 3 || s.draftPicks.includes(name) ? {} : ({ draftPicks:[...s.draftPicks, name] })); }
+  removePick(name){ this.setState(s => ({ draftPicks: s.draftPicks.filter(n => n !== name) })); }
+
+  accentTheme(){
+    const a = this.props.accent || 'Tour Yellow';
+    if (a === 'Giro Pink')  return { c:'#E83E8C', tint:'#FCEAF2', border:'#F6C9DE', ink:'#8E1A55' };
+    if (a === 'Vuelta Red') return { c:'#DC143C', tint:'#FDEAEC', border:'#F4C5CD', ink:'#8E0E26' };
+    return { c:'#F2C200', tint:'#FEFAE6', border:'#F2E4A0', ink:'#6E5300' };
+  }
+
+  fmtMove(m){ if (m>0) return {label:'\u25B2 '+m, color:'#3E8F5F'}; if (m<0) return {label:'\u25BC '+(-m), color:'#C25B43'}; return {label:'hold', color:'#B0ACA2'}; }
+  fmtDelta(d){ if (d>0) return {label:'\u25B2'+d, color:'#3E8F5F'}; if (d<0) return {label:'\u25BC'+(-d), color:'#C25B43'}; return {label:'\u2013', color:'#B0ACA2'}; }
+  fmtToday(d){ if (d>0) return {label:'\u25B2 Gained '+d+(d===1?' place':' places'), color:'#3E8F5F'}; if (d<0) return {label:'\u25BC Lost '+(-d)+(d===-1?' place':' places'), color:'#C25B43'}; return {label:'\u2013 Held position', color:'#9A968D'}; }
+  surname(n){ const p=n.split(' '); return p[p.length-1]; }
+  ordinal(n){ return n===1?'1st':n===2?'2nd':n===3?'3rd':n+'th'; }
+
+  data(){
+    return [
+      { name:'Nate', rank:1, total:'129:57:19', gap:'Leader', move:1, leader:true, last:false, riders:[
+        { name:'Florian Lipowitz', gc:5, time:'43:15:36', d:0, proTeam:'Red Bull\u2013BORA\u2013hansgrohe', gapGC:'+3:31', role:'Climber', nat:'Germany', age:25, form:[6,5,4] },
+        { name:'João Almeida', gc:4, time:'43:18:26', d:1, proTeam:'UAE Team Emirates', gapGC:'+6:21', role:'GC', nat:'Portugal', age:27, form:[9,7,3] },
+        { name:'Enric Mas', gc:11, time:'43:23:17', d:-1, proTeam:'Movistar Team', gapGC:'+11:12', role:'GC', nat:'Spain', age:31, form:[12,15,11] } ] },
+      { name:'Leo', rank:2, total:'129:58:37', gap:'+1:18', move:-1, leader:false, last:false, riders:[
+        { name:'Remco Evenepoel', gc:3, time:'43:14:23', d:0, proTeam:'Red Bull\u2013BORA\u2013hansgrohe', gapGC:'+2:18', role:'GC', nat:'Belgium', age:26, form:[3,4,2] },
+        { name:'Felix Gall', gc:9, time:'43:19:49', d:2, proTeam:'Decathlon AG2R', gapGC:'+7:44', role:'Climber', nat:'Austria', age:28, form:[7,9,1] },
+        { name:"Ben O'Connor", gc:14, time:'43:24:25', d:-1, proTeam:'Jayco AlUla', gapGC:'+12:20', role:'GC', nat:'Australia', age:30, form:[14,11,20] } ] },
+      { name:'Aaron', rank:3, total:'130:04:00', gap:'+6:41', move:0, leader:false, last:false, riders:[
+        { name:'Tadej Pogačar', gc:1, time:'43:12:05', d:0, proTeam:'UAE Team Emirates', gapGC:'GC leader', role:'GC', nat:'Slovenia', age:27, form:[1,2,1] },
+        { name:'Kévin Vauquelin', gc:12, time:'43:26:10', d:1, proTeam:'Arkéa\u2013B&B Hotels', gapGC:'+14:05', role:'All-rounder', nat:'France', age:25, form:[24,12,8] },
+        { name:'Santiago Buitrago', gc:13, time:'43:25:45', d:-2, proTeam:'Bahrain Victorious', gapGC:'+13:40', role:'Climber', nat:'Colombia', age:26, form:[41,33,29] } ] },
+      { name:'Charles', rank:4, total:'130:06:15', gap:'+8:56', move:1, leader:false, last:false, riders:[
+        { name:'Primož Roglič', gc:8, time:'43:17:52', d:1, proTeam:'Red Bull\u2013BORA\u2013hansgrohe', gapGC:'+5:47', role:'GC', nat:'Slovenia', age:36, form:[8,6,9] },
+        { name:'Carlos Rodríguez', gc:7, time:'43:21:00', d:2, proTeam:'INEOS Grenadiers', gapGC:'+8:55', role:'GC', nat:'Spain', age:25, form:[10,7,5] },
+        { name:'Tobias H. Johannessen', gc:15, time:'43:27:23', d:-1, proTeam:'Uno-X Mobility', gapGC:'+15:18', role:'Climber', nat:'Norway', age:26, form:[15,18,12] } ] },
+      { name:'Aly', rank:5, total:'130:08:06', gap:'+10:47', move:-1, leader:false, last:false, riders:[
+        { name:'Oscar Onley', gc:6, time:'43:16:53', d:3, proTeam:'Picnic PostNL', gapGC:'+4:48', role:'Climber', nat:'Britain', age:23, form:[22,9,1] },
+        { name:'Juan Ayuso', gc:10, time:'43:21:43', d:0, proTeam:'Lidl\u2013Trek', gapGC:'+9:38', role:'GC', nat:'Spain', age:23, form:[13,10,15] },
+        { name:'Aleksandr Vlasov', gc:17, time:'43:29:30', d:-2, proTeam:'Red Bull\u2013BORA\u2013hansgrohe', gapGC:'+17:25', role:'Domestique', nat:'Russia', age:29, form:[17,19,16] } ] },
+      { name:'Jeremy', rank:6, total:'130:12:24', gap:'+15:05', move:0, leader:false, last:true, riders:[
+        { name:'Jonas Vingegaard', gc:2, time:'43:12:57', d:0, proTeam:'Visma\u2013Lease a Bike', gapGC:'+0:52', role:'GC', nat:'Denmark', age:29, form:[2,3,2] },
+        { name:'Ben Healy', gc:22, time:'43:30:52', d:-3, proTeam:'EF Education\u2013EasyPost', gapGC:'+18:47', role:'Puncheur', nat:'Ireland', age:25, form:[22,30,19] },
+        { name:'Sepp Kuss', gc:18, time:'43:28:35', d:1, proTeam:'Visma\u2013Lease a Bike', gapGC:'+16:30', role:'Domestique', nat:'United States', age:31, form:[18,16,21] } ] },
+    ];
+  }
+
+  riderIndex(){
+    const idx = {};
+    this.data().forEach(t => t.riders.forEach(r => { idx[r.name] = { rider:r, owner:t.name }; }));
+    return idx;
+  }
+
+  draftPoolData(){
+    return [
+      { name:'Tadej Pogačar', team:'UAE Team Emirates', role:'GC' },
+      { name:'Santiago Buitrago', team:'Bahrain Victorious', role:'Climber' },
+      { name:'Mattias Skjelmose', team:'Lidl\u2013Trek', role:'All-rounder' },
+      { name:'Egan Bernal', team:'INEOS Grenadiers', role:'GC' },
+      { name:'Adam Yates', team:'UAE Team Emirates', role:'Climber' },
+      { name:'Mads Pedersen', team:'Lidl\u2013Trek', role:'Sprinter' },
+      { name:'Tom Pidcock', team:'Q36.5', role:'All-rounder' },
+      { name:'Geraint Thomas', team:'INEOS Grenadiers', role:'GC' },
+      { name:'Wout van Aert', team:'Visma\u2013Lease a Bike', role:'Puncheur' },
+      { name:'Felix Gall', team:'Decathlon AG2R', role:'Climber' },
+    ];
+  }
+
+  racesData(){
+    return [
+      { id:'tdf-2025', name:'Tour de France 2025', dates:'Jul 5 \u2013 27, 2025', stages:21, status:'Complete', dot:'#F2C200', note:'Won by Aaron' },
+      { id:'giro-2026', name:"Giro d'Italia 2026", dates:'May 9 \u2013 31, 2026', stages:21, status:'Upcoming', dot:'#E83E8C', note:'Starts May' },
+      { id:'tdf-2026', name:'Tour de France 2026', dates:'Jul 4 \u2013 26, 2026', stages:21, status:'Live', dot:'#F2C200', note:'Stage 11 / 21' },
+      { id:'vuelta-2026', name:'Vuelta a España 2026', dates:'Aug 22 \u2013 Sep 13, 2026', stages:21, status:'Upcoming', dot:'#DC143C', note:'Starts Aug' },
+    ];
+  }
+
+  renderVals(){
+    const theme = this.accentTheme();
+    const screen = this.state.screen;
+    const sub = this.state.sub;
+    const showMovement = this.props.showMovement !== false;
+    const raw = this.data();
+    const idx = this.riderIndex();
+
+    const base = {
+      accentColor:theme.c, accentTint:theme.tint, accentBorder:theme.border, accentInk:theme.ink,
+      showMain: !sub, showDraft: sub === 'draft', showRider: !!(sub && sub.type === 'rider'),
+    };
+
+    // ---- Rider profile ----
+    if (sub && sub.type === 'rider') {
+      const hit = idx[sub.name];
+      const r = hit ? hit.rider : null;
+      const owner = hit ? hit.owner : null;
+      const rp = r ? {
+        name:r.name, team:r.proTeam, role:r.role, nat:r.nat, age:r.age + ' yrs',
+        gcRank:'#'+r.gc, gcTime:r.time, gapGC:r.gapGC,
+        form: r.form.map((p,i) => ({ label:'St '+(this.stageNumInt() - 2 + i), place:this.ordinal(p) })),
+        owned: owner ? ('Drafted by ' + owner + (owner === 'Aaron' ? ' (you)' : '')) : 'Not drafted in your league',
+      } : null;
+      return { ...base, closeSub:() => this.closeSub(), rp };
+    }
+
+    // ---- Draft ----
+    if (sub === 'draft') {
+      const picks = this.state.draftPicks;
+      const poolAll = this.draftPoolData();
+      const pickByName = (n) => poolAll.find(x => x.name === n) || { name:n, team:'', role:'' };
+      const draftSlots = [0,1,2].map(i => {
+        const nm = picks[i];
+        if (nm) { const r = pickByName(nm); return { filled:true, empty:false, slotNo:String(i+1), name:nm, team:r.team, role:r.role, onRemove:() => this.removePick(nm) }; }
+        return { filled:false, empty:true, slotNo:String(i+1) };
+      });
+      const full = picks.length >= 3;
+      const draftPool = poolAll.filter(r => !picks.includes(r.name)).map(r => ({
+        name:r.name, team:r.team, role:r.role, onAdd:() => this.addPick(r.name),
+        addBg: full ? '#F4F2EC' : 'var(--accent-tint)',
+        addBorder: full ? '#E4E1D8' : 'var(--accent)',
+        addColor: full ? '#C2BEB4' : 'var(--accent-ink)',
+      }));
+      return { ...base, closeSub:() => this.closeSub(),
+        draftSlots, draftPool,
+        draftCount:String(picks.length), draftCountColor: full ? '#3E8F5F' : '#C25B43',
+        draftNote: full ? 'Your team is set · picks lock when Stage 12 starts' : 'Pick ' + (3 - picks.length) + ' more · picks lock when Stage 12 starts',
+        confirmLabel: full ? 'Save team' : 'Pick ' + (3 - picks.length) + ' more rider' + (3 - picks.length === 1 ? '' : 's'),
+        confirmBg: full ? 'var(--accent)' : '#F0EEE8',
+        confirmColor: full ? 'var(--accent-ink)' : '#B4B0A6',
+      };
+    }
+
+    // ---- Main tabbed ----
+    const tabDefs = [ ['Standings','standings'], ['Stage','stage'], ['Team','team'], ['Races','races'] ];
+    const tabs = tabDefs.map(([label,key]) => ({ label, active:screen===key, color:screen===key?'#1A1813':'#A8A49C', onClick:() => this.setScreen(key) }));
+
+    const teams = raw.map(p => {
+      const mv = this.fmtMove(p.move);
+      return { name:p.name, rank:String(p.rank), totalTime:p.total, gap:p.gap,
+        gapColor: p.leader ? 'var(--accent-ink)' : '#9A968D',
+        moveLabel:mv.label, moveColor:mv.color, isLeader:p.leader, isLast:p.last,
+        subline: p.riders.map(r => this.surname(r.name)).join('  \u00B7  '),
+        expanded: !!this.state.expanded[p.name], chevron: this.state.expanded[p.name] ? '\u25BE' : '\u25B8',
+        toggle:() => this.toggle(p.name),
+        riders: p.riders.map(r => { const dl = this.fmtDelta(r.d); return { name:r.name, gcLabel:'#'+r.gc, time:r.time, deltaLabel:dl.label, deltaColor:dl.color }; }) };
+    });
+
+    const teamChips = raw.map(p => { const active = this.state.team === p.name; return { name:p.name, onClick:() => this.setTeam(p.name),
+      bg: active ? 'var(--accent)' : '#FFFFFF', color: active ? 'var(--accent-ink)' : '#6E6A62', border: active ? 'var(--accent)' : '#E4E1D8' }; });
+    const selRaw = raw.find(p => p.name === this.state.team) || raw[0];
+    const secondGap = (raw.find(p => p.rank === 2) || {}).gap || '';
+    const selTeam = { name:selRaw.name, total:selRaw.total, isYou:selRaw.name==='Aaron', isLeader:selRaw.leader, isLast:selRaw.last,
+      gapColor: selRaw.leader ? 'var(--accent-ink)' : '#9A968D',
+      gapLine: selRaw.leader ? ('Leads by ' + secondGap.replace('+','')) : (selRaw.gap + ' behind'),
+      standingLine: this.ordinal(selRaw.rank) + ' of 6 overall \u00B7 3 riders',
+      riders: selRaw.riders.map(r => { const td = this.fmtToday(r.d); return { name:r.name, gcNum:String(r.gc), proTeam:r.proTeam, time:r.time, gapGC:r.gapGC, todayLabel:td.label, todayColor:td.color, onOpen:() => this.openRider(r.name) }; }) };
+
+    const badge = (s) => s==='Live' ? {bg:'#E6F4EC',color:'#2F7D52'} : s==='Complete' ? {bg:'#F0EEE8',color:'#8C8881'} : {bg:'#F4F2EC',color:'#9A968D'};
+    const races = this.racesData().map(rc => { const viewing = this.state.race === rc.id; const b = badge(rc.status);
+      return { name:rc.name, dates:rc.dates, stages:String(rc.stages), status:rc.status, dot:rc.dot, note:rc.note, viewing,
+        border: viewing ? 'var(--accent)' : '#E8E5DD', badgeBg:b.bg, badgeColor:b.color, onClick:() => this.setRace(rc.id) }; });
+
+    // Stage screen
+    const stage = { date:'Thu Jul 16', route:'Pau → Luchon-Superbagnères', type:'High mountain', km:'183 km',
+      winner:'Oscar Onley', winnerTeam:'Picnic PostNL', winnerTime:'4:52:18' };
+    const movers = [
+      { name:'Nate', move:'\u25B2 1', color:'#3E8F5F', note:'Takes the yellow jersey' },
+      { name:'Charles', move:'\u25B2 1', color:'#3E8F5F', note:'Up to 4th overall' },
+      { name:'Leo', move:'\u25BC 1', color:'#C25B43', note:'Cedes the race lead' },
+      { name:'Aly', move:'\u25BC 1', color:'#C25B43', note:'Slips to 5th' },
+    ];
+    const yourToday = [
+      { name:'Tadej Pogačar', place:'2nd', gap:'+0:24', note:'Holds GC #1', onOpen:() => this.openRider('Tadej Pogačar') },
+      { name:'Kévin Vauquelin', place:'24th', gap:'+6:40', note:'Up 1 on GC', onOpen:() => this.openRider('Kévin Vauquelin') },
+      { name:'Santiago Buitrago', place:'41st', gap:'+12:10', note:'Lost 2 on GC', onOpen:() => this.openRider('Santiago Buitrago') },
+    ];
+
+    return { ...base,
+      stageNum:'11', totalStages:'21', progressPct:'52%', updated:'2 min ago',
+      recap:'Nate takes the yellow jersey from Leo after the Pyrenees. Onley was the day\u2019s big mover, climbing 3 places on GC.',
+      showMovement,
+      isStandings:screen==='standings', isStage:screen==='stage', isTeam:screen==='team', isRaces:screen==='races',
+      tabs, teams, teamChips, selTeam, races, stage, movers, yourToday,
+      openDraft:() => this.openDraft() };
+  }
+
+  stageNumInt(){ return 11; }
+}
+</script>
+</body>
+</html>
