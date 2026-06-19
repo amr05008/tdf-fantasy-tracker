@@ -52,10 +52,12 @@ def _fetch_playwright(path: str) -> str:
         raise PCSBlockedError("Playwright not installed; run `pip install playwright && playwright install chromium`") from e
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-        page = browser.new_page()
-        page.goto(BASE_URL + path.strip("/"), wait_until="networkidle", timeout=60000)
-        html = page.content()
-        browser.close()
+        try:
+            page = browser.new_page()
+            page.goto(BASE_URL + path.strip("/"), wait_until="networkidle", timeout=60000)
+            html = page.content()
+        finally:
+            browser.close()
     return html
 
 

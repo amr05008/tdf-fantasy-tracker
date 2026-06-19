@@ -66,14 +66,22 @@ def cmd_swap(race_id: str) -> None:
     participant = input("\nParticipant: ").strip()
     out_slug = input("Outgoing rider slug (rider/...): ").strip()
     q = input("Replacement (name or rider/slug): ").strip()
-    stage = int(input("Effective from stage #: ").strip())
+    try:
+        stage = int(input("Effective from stage #: ").strip())
+    except ValueError:
+        print("✗ Stage must be a number; aborting.")
+        return
     resolved = rider_resolver.resolve_rider(q)
     if not resolved:
         print("✗ Replacement did not resolve; aborting.")
         return
-    roster_store.swap_rider(roster, participant, out_slug, {
-        "slug": resolved["slug"], "name": resolved["name"], "team": resolved["team"],
-    }, effective_stage=stage)
+    try:
+        roster_store.swap_rider(roster, participant, out_slug, {
+            "slug": resolved["slug"], "name": resolved["name"], "team": resolved["team"],
+        }, effective_stage=stage)
+    except ValueError as e:
+        print(f"✗ {e}; aborting.")
+        return
     total = get_race_config(race_id)["total_stages"]
     violations = roster_store.validate(roster, total)
     if violations:

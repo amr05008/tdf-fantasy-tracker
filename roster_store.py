@@ -10,7 +10,10 @@ DEFAULT_PATH = "data/rosters.json"
 
 
 def load(race_id: str, path: str = DEFAULT_PATH) -> dict:
-    data = json.loads(pathlib.Path(path).read_text(encoding="utf-8"))
+    p = pathlib.Path(path)
+    if not p.exists():
+        return {}
+    data = json.loads(p.read_text(encoding="utf-8"))
     return data.get(race_id, {})
 
 

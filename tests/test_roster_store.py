@@ -47,3 +47,7 @@ def test_save_and_load_roundtrip(tmp_path):
     loaded = rs.load("tdf-2026", path=str(p))
     assert loaded["Aaron"][0]["slug"] == "rider/tadej-pogacar"
     assert json.loads(p.read_text())["tdf-2026"]["Aaron"]
+
+
+def test_load_missing_file_returns_empty(tmp_path):
+    assert rs.load("tdf-2026", path=str(tmp_path / "nope.json")) == {}
