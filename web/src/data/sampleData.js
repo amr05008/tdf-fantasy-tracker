@@ -7,7 +7,7 @@ const sampleData = {
     progressPct: '52%',
     updated: '2 min ago',
     recap:
-      `Nate takes the yellow jersey from Leo after the Pyrenees. Onley was the day's big mover, climbing 3 places on GC.`,
+      'Nate takes the yellow jersey from Leo after the Pyrenees. Onley was the day’s big mover, climbing 3 places on GC.',
   },
   teams: [
     { name: 'Nate', rank: 1, total: '129:57:19', gap: 'Leader', move: 1, leader: true, last: false, riders: [
