@@ -931,9 +931,10 @@ Turn a typed name into a validated `{slug, name, team}` by deriving a candidate 
 import rider_resolver as rr
 
 
-def test_slugify_strips_accents_and_punct():
+def test_slugify_handles_accents_and_punctuation():
     assert rr.slugify_name("Tadej Pogačar") == "tadej-pogacar"
-    assert rr.slugify_name("Ben O'Connor") == "ben-oconnor"
+    # Apostrophes follow PCS convention: O'Connor -> o-connor (separator, not deleted)
+    assert rr.slugify_name("Ben O'Connor") == "ben-o-connor"
     assert rr.slugify_name("  Jonas   Vingegaard ") == "jonas-vingegaard"
 
 
@@ -968,10 +969,13 @@ import pcs_fetch
 
 
 def slugify_name(query: str) -> str:
+    # Strip accents (Pogačar -> pogacar), then turn every run of non-alphanumeric
+    # characters — spaces, apostrophes, periods — into a single hyphen, matching
+    # PCS slug convention (O'Connor -> o-connor). Letters like ø/ł that NFKD does
+    # not decompose won't map; the caller falls back to pasting the rider/<slug>.
     norm = unicodedata.normalize("NFKD", query)
     norm = "".join(c for c in norm if not unicodedata.combining(c))
-    norm = norm.lower().replace("'", "").replace(".", "")
-    norm = re.sub(r"[^a-z0-9]+", "-", norm).strip("-")
+    norm = re.sub(r"[^a-z0-9]+", "-", norm.lower()).strip("-")
     return norm
 
 
