@@ -22,3 +22,6 @@
 # Python bytecode (existing Streamlit app)
 __pycache__/
 *.pyc
+
+# PCS raw-HTML cache
+.pcs_cache/
