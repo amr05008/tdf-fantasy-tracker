@@ -13,5 +13,5 @@ test('switching tabs changes the screen and clears sub-screens', async () => {
   await userEvent.click(screen.getAllByText('Team')[0])
   expect(screen.getByText('Edit your picks')).toBeInTheDocument()
   await userEvent.click(screen.getByText('Races'))
-  expect(screen.getByText('races screen')).toBeInTheDocument()
+  expect(screen.getByText('Choose competition')).toBeInTheDocument()
 })
