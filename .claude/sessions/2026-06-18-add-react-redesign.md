@@ -23,3 +23,6 @@ Recreated the fantasy-cycling app as a standalone **React + Vite single-page app
 ## Notes
 - `/grill` caught + fixed: `ordinal()` rendered "41th/33th" (now full English rule); race selection half-swapped the accent theme over Tour data (accent now derives from `data.meta.raceId`); missing OG/social meta (added, absolute URLs for the Vercel domain).
 - **Phase 2 (next session):** Python `data.json` generator reusing `api_client.py`, refresh cron during the race, daily GC snapshot for movement arrows, real 2026 rosters. See spec §7 + `web/README.md`.
+
+## Release
+- Tagged **`v0.1.0`** (annotated, repo's first tag) at `696763b` and published a GitHub Release from this log: https://github.com/amr05008/tdf-fantasy-tracker/releases/tag/v0.1.0 — "first testable build (React+Vite redesign, placeholder data), deployed on Vercel".
