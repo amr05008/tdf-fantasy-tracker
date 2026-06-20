@@ -28,9 +28,9 @@ test('full navigation flow across all screens and sub-screens', async ({ page })
   await expect(page.getByText('Drafted by Aaron (you)')).toBeVisible()
   await page.getByText('Back').click()
 
-  // Races tab -> switch to Giro -> accent swatch theme changes (pink dot present)
+  // Races tab -> switch to the completed Tour de France 2025 -> URL reflects the race
   await page.getByText('Races', { exact: true }).click()
   await expect(page.getByText('Choose competition')).toBeVisible()
-  await page.getByText("Giro d'Italia 2026").click()
-  await expect(page).toHaveURL(/race=giro-2026/)
+  await page.getByText('Tour de France 2025').click()
+  await expect(page).toHaveURL(/race=tdf-2025/)
 })
