@@ -24,3 +24,12 @@ test('selecting a race does not crash and keeps the Tour Yellow accent', async (
   await userEvent.click(screen.getByText('Tour de France 2025'))
   expect(root.style.getPropertyValue('--accent')).toBe('#F2C200')
 })
+
+test('selecting the upcoming Tour 2026 shows the upcoming notice', async () => {
+  render(<App />)
+  await userEvent.click(screen.getByText('Races'))
+  await userEvent.click(screen.getByText('Tour de France 2026'))
+  await userEvent.click(screen.getByText('Standings'))
+  expect(screen.getByText('Upcoming')).toBeVisible()
+  expect(screen.getByText(/Standings will appear once the race begins/i)).toBeVisible()
+})

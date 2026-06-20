@@ -55,7 +55,7 @@ const sampleData = {
   ],
   races: [
     { id: 'tdf-2025', name: 'Tour de France 2025', dates: 'Jul 5 – 27, 2025', stages: 21, status: 'Complete', dot: '#F2C200', note: 'Won by Aaron' },
-    { id: 'tdf-2026', name: 'Tour de France 2026', dates: 'Jul 4 – 26, 2026', stages: 21, status: 'Live', dot: '#F2C200', note: 'Stage 11 / 21' },
+    { id: 'tdf-2026', name: 'Tour de France 2026', dates: 'Jul 4 – 26, 2026', stages: 21, status: 'Upcoming', dot: '#F2C200', note: 'Starts Jul 4' },
   ],
   stage: {
     stageNum: 11, date: 'Thu Jul 16', route: 'Pau → Luchon-Superbagnères',

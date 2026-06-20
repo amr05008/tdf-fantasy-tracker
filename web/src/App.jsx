@@ -9,13 +9,14 @@ import Standings from './screens/Standings.jsx'
 import Stage from './screens/Stage.jsx'
 import Team from './screens/Team.jsx'
 import Races from './screens/Races.jsx'
+import Upcoming from './screens/Upcoming.jsx'
 
 const TABS = [['Standings', 'standings'], ['Stage', 'stage'], ['Team', 'team'], ['Races', 'races']]
 
 function initialRace() {
-  if (typeof window === 'undefined') return 'tdf-2026'
+  if (typeof window === 'undefined') return 'tdf-2025'
   const q = new URLSearchParams(window.location.search).get('race')
-  return q || 'tdf-2026'
+  return q || 'tdf-2025'
 }
 
 export default function App() {
@@ -71,15 +72,23 @@ export default function App() {
 }
 
 function renderMain(ctx) {
-  const { screen, setScreen } = ctx
+  const { screen, setScreen, data } = ctx
+  const upcomingRace = data.upcoming
+    ? data.races.find(r => r.id === data.meta.raceId)
+    : null
   return (
     <div>
       <BrandBar />
       <TabNav tabs={TABS} active={screen} onSelect={setScreen} />
-      {screen === 'standings' && <Standings data={ctx.data} expanded={ctx.expanded} toggle={ctx.toggle} showMovement={ctx.showMovement} />}
-      {screen === 'stage' && <Stage data={ctx.data} openRider={ctx.openRider} />}
-      {screen === 'team' && <Team data={ctx.data} team={ctx.team} setTeam={ctx.setTeam} showMovement={ctx.showMovement} openRider={ctx.openRider} openDraft={ctx.openDraft} />}
-      {screen === 'races' && <Races data={ctx.data} race={ctx.race} setRace={ctx.setRace} />}
+      {screen === 'races'
+        ? <Races data={data} race={ctx.race} setRace={ctx.setRace} />
+        : data.upcoming
+          ? <Upcoming race={upcomingRace} />
+          : <>
+              {screen === 'standings' && <Standings data={ctx.data} expanded={ctx.expanded} toggle={ctx.toggle} showMovement={ctx.showMovement} />}
+              {screen === 'stage' && <Stage data={ctx.data} openRider={ctx.openRider} />}
+              {screen === 'team' && <Team data={ctx.data} team={ctx.team} setTeam={ctx.setTeam} showMovement={ctx.showMovement} openRider={ctx.openRider} openDraft={ctx.openDraft} />}
+            </>}
     </div>
   )
 }

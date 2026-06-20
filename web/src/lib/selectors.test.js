@@ -71,9 +71,9 @@ test('buildDraftView gates at three picks', () => {
 
 test('buildRaceCards marks the viewing race and badges by status', () => {
   const cards = buildRaceCards(races, 'tdf-2026')
-  const live = cards.find(c => c.id === 'tdf-2026')
-  expect(live.viewing).toBe(true)
-  expect(live.badge).toEqual({ bg: '#E6F4EC', color: '#2F7D52' })
+  const upcoming = cards.find(c => c.id === 'tdf-2026')
+  expect(upcoming.viewing).toBe(true)
+  expect(upcoming.badge).toEqual({ bg: '#F4F2EC', color: '#9A968D' })
   const complete = cards.find(c => c.id === 'tdf-2025')
   expect(complete.badge).toEqual({ bg: '#F0EEE8', color: '#8C8881' })
 })

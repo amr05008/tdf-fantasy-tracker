@@ -25,3 +25,13 @@ test('hook returns sampleData synchronously (no fetch in test mode)', () => {
   const { result } = renderHook(() => useLeagueData('tdf-2025'))
   expect(result.current).toBe(sampleData)
 })
+
+test('an upcoming race returns the upcoming view without fetching', () => {
+  const fetchSpy = vi.fn()
+  vi.stubGlobal('fetch', fetchSpy)
+  const { result } = renderHook(() => useLeagueData('tdf-2026'))
+  expect(result.current.upcoming).toBe(true)
+  expect(result.current.meta.raceId).toBe('tdf-2026')
+  expect(result.current.races).toBe(sampleData.races)
+  expect(fetchSpy).not.toHaveBeenCalled()
+})
