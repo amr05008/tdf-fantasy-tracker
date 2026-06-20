@@ -1,0 +1,361 @@
+{
+  "meta": {
+    "raceId": "tdf-2025",
+    "name": "Tour de France 2025",
+    "stageNum": 21,
+    "totalStages": 21,
+    "progressPct": "100%",
+    "updated": "Jun 20, 2026",
+    "recap": "Final standings — Aaron wins the Tour de France 2025."
+  },
+  "teams": [
+    {
+      "name": "Aaron",
+      "rank": 1,
+      "total": "228:59:22",
+      "gap": "Leader",
+      "move": 0,
+      "leader": true,
+      "last": false,
+      "riders": [
+        {
+          "name": "Lipowitz Florian",
+          "gc": 3,
+          "time": "76:11:32",
+          "d": 0,
+          "proTeam": "Red Bull - BORA - hansgrohe",
+          "gapGC": "+0:11:00",
+          "role": "Rider",
+          "nat": "Germany",
+          "age": 24
+        },
+        {
+          "name": "Onley Oscar",
+          "gc": 4,
+          "time": "76:12:44",
+          "d": 0,
+          "proTeam": "Team Picnic PostNL",
+          "gapGC": "+0:12:12",
+          "role": "Rider",
+          "nat": "Britain",
+          "age": 22
+        },
+        {
+          "name": "O'Connor Ben",
+          "gc": 11,
+          "time": "76:35:06",
+          "d": 0,
+          "proTeam": "Team Jayco AlUla",
+          "gapGC": "+0:34:34",
+          "role": "Rider",
+          "nat": "Australia",
+          "age": 29
+        }
+      ]
+    },
+    {
+      "name": "Leo",
+      "rank": 2,
+      "total": "229:59:30",
+      "gap": "+1:00:08",
+      "move": 0,
+      "leader": false,
+      "last": false,
+      "riders": [
+        {
+          "name": "Gall Felix",
+          "gc": 5,
+          "time": "76:17:44",
+          "d": 0,
+          "proTeam": "Decathlon AG2R La Mondiale Team",
+          "gapGC": "+0:17:12",
+          "role": "Rider",
+          "nat": "Austria",
+          "age": 27
+        },
+        {
+          "name": "Vauquelin Kévin",
+          "gc": 7,
+          "time": "76:23:07",
+          "d": 0,
+          "proTeam": "Arkéa - B&B Hotels",
+          "gapGC": "+0:22:35",
+          "role": "Rider",
+          "nat": "France",
+          "age": 24
+        },
+        {
+          "name": "Martin Guillaume",
+          "gc": 16,
+          "time": "77:18:39",
+          "d": 0,
+          "proTeam": "Groupama - FDJ",
+          "gapGC": "+1:18:07",
+          "role": "Rider",
+          "nat": "France",
+          "age": 32
+        }
+      ]
+    },
+    {
+      "name": "Jeremy",
+      "rank": 3,
+      "total": "230:54:38",
+      "gap": "+1:55:16",
+      "move": 0,
+      "leader": false,
+      "last": false,
+      "riders": [
+        {
+          "name": "Kuss Sepp",
+          "gc": 17,
+          "time": "77:20:56",
+          "d": 0,
+          "proTeam": "Team Visma | Lease a Bike",
+          "gapGC": "+1:20:24",
+          "role": "Rider",
+          "nat": "United States",
+          "age": 30
+        },
+        {
+          "name": "Narváez Jhonatan",
+          "gc": 13,
+          "time": "77:05:08",
+          "d": 0,
+          "proTeam": "UAE Team Emirates - XRG",
+          "gapGC": "+1:04:36",
+          "role": "Rider",
+          "nat": "Ecuador",
+          "age": 28
+        },
+        {
+          "name": "Healy Ben",
+          "gc": 9,
+          "time": "76:28:34",
+          "d": 0,
+          "proTeam": "EF Education - EasyPost",
+          "gapGC": "+0:28:02",
+          "role": "Rider",
+          "nat": "Ireland",
+          "age": 24
+        }
+      ]
+    },
+    {
+      "name": "Charles",
+      "rank": 4,
+      "total": "231:10:47",
+      "gap": "+2:11:25",
+      "move": 0,
+      "leader": false,
+      "last": false,
+      "riders": [
+        {
+          "name": "Jegat Jordan",
+          "gc": 10,
+          "time": "76:33:14",
+          "d": 0,
+          "proTeam": "TotalEnergies",
+          "gapGC": "+0:32:42",
+          "role": "Rider",
+          "nat": "France",
+          "age": 26
+        },
+        {
+          "name": "Johannessen Tobias Halland",
+          "gc": 6,
+          "time": "76:20:46",
+          "d": 0,
+          "proTeam": "Uno-X Mobility",
+          "gapGC": "+0:20:14",
+          "role": "Rider",
+          "nat": "Norway",
+          "age": 25
+        },
+        {
+          "name": "Vlasov Aleksandr",
+          "gc": 27,
+          "time": "78:16:47",
+          "d": 0,
+          "proTeam": "Red Bull - BORA - hansgrohe",
+          "gapGC": "+2:16:15",
+          "role": "Rider",
+          "nat": "Russia",
+          "age": 29
+        }
+      ]
+    },
+    {
+      "name": "Nate",
+      "rank": 5,
+      "total": "234:29:08",
+      "gap": "+5:29:46",
+      "move": 0,
+      "leader": false,
+      "last": true,
+      "riders": [
+        {
+          "name": "Roglič Primož",
+          "gc": 8,
+          "time": "76:26:02",
+          "d": 0,
+          "proTeam": "Red Bull - BORA - hansgrohe",
+          "gapGC": "+0:25:30",
+          "role": "Rider",
+          "nat": "Slovenia",
+          "age": 35
+        },
+        {
+          "name": "Paret-Peintre Valentin",
+          "gc": 41,
+          "time": "78:47:37",
+          "d": 0,
+          "proTeam": "Soudal Quick-Step",
+          "gapGC": "+2:47:05",
+          "role": "Rider",
+          "nat": "France",
+          "age": 24
+        },
+        {
+          "name": "Thomas Geraint",
+          "gc": 58,
+          "time": "79:15:29",
+          "d": 0,
+          "proTeam": "INEOS Grenadiers",
+          "gapGC": "+3:14:57",
+          "role": "Rider",
+          "nat": "Britain",
+          "age": 39
+        }
+      ]
+    }
+  ],
+  "draftPool": [
+    {
+      "name": "Lipowitz Florian",
+      "team": "Red Bull - BORA - hansgrohe",
+      "role": "Rider"
+    },
+    {
+      "name": "Onley Oscar",
+      "team": "Team Picnic PostNL",
+      "role": "Rider"
+    },
+    {
+      "name": "O'Connor Ben",
+      "team": "Team Jayco AlUla",
+      "role": "Rider"
+    },
+    {
+      "name": "Gall Felix",
+      "team": "Decathlon AG2R La Mondiale Team",
+      "role": "Rider"
+    },
+    {
+      "name": "Vauquelin Kévin",
+      "team": "Arkéa - B&B Hotels",
+      "role": "Rider"
+    },
+    {
+      "name": "Martin Guillaume",
+      "team": "Groupama - FDJ",
+      "role": "Rider"
+    },
+    {
+      "name": "Kuss Sepp",
+      "team": "Team Visma | Lease a Bike",
+      "role": "Rider"
+    },
+    {
+      "name": "Narváez Jhonatan",
+      "team": "UAE Team Emirates - XRG",
+      "role": "Rider"
+    },
+    {
+      "name": "Healy Ben",
+      "team": "EF Education - EasyPost",
+      "role": "Rider"
+    },
+    {
+      "name": "Jegat Jordan",
+      "team": "TotalEnergies",
+      "role": "Rider"
+    },
+    {
+      "name": "Johannessen Tobias Halland",
+      "team": "Uno-X Mobility",
+      "role": "Rider"
+    },
+    {
+      "name": "Vlasov Aleksandr",
+      "team": "Red Bull - BORA - hansgrohe",
+      "role": "Rider"
+    },
+    {
+      "name": "Roglič Primož",
+      "team": "Red Bull - BORA - hansgrohe",
+      "role": "Rider"
+    },
+    {
+      "name": "Paret-Peintre Valentin",
+      "team": "Soudal Quick-Step",
+      "role": "Rider"
+    },
+    {
+      "name": "Thomas Geraint",
+      "team": "INEOS Grenadiers",
+      "role": "Rider"
+    }
+  ],
+  "races": [
+    {
+      "id": "tdf-2025",
+      "name": "Tour de France 2025",
+      "dates": "2025-07-05 – 2025-07-27",
+      "stages": 21,
+      "status": "Complete",
+      "dot": "#FFD700",
+      "note": "Won by Aaron"
+    },
+    {
+      "id": "tdf-2026",
+      "name": "Tour de France 2026",
+      "dates": "2026-07-04 – 2026-07-26",
+      "stages": 21,
+      "status": "Upcoming",
+      "dot": "#FFD700",
+      "note": "Upcoming"
+    }
+  ],
+  "stage": {
+    "stageNum": 21,
+    "date": "2025-07-27",
+    "route": "Mantes-la-Ville → Paris (Champs-Élysées)",
+    "type": "Flat",
+    "km": "132.3 km",
+    "winner": "van Aert Wout",
+    "winnerTeam": "Team Visma | Lease a Bike",
+    "winnerTime": "3:07:30"
+  },
+  "movers": [],
+  "yourToday": [
+    {
+      "name": "Lipowitz Florian",
+      "place": "#3",
+      "gap": "+0:11:00",
+      "note": "Holds GC position"
+    },
+    {
+      "name": "Onley Oscar",
+      "place": "#4",
+      "gap": "+0:12:12",
+      "note": "Holds GC position"
+    },
+    {
+      "name": "O'Connor Ben",
+      "place": "#11",
+      "gap": "+0:34:34",
+      "note": "Holds GC position"
+    }
+  ]
+}

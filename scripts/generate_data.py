@@ -7,6 +7,10 @@ import json
 import pathlib
 import sys
 
+# Allow running as `python scripts/generate_data.py` — put the repo root (where
+# pcs_parse/scoring/etc. live) on sys.path, not just this script's directory.
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
+
 import pcs_parse
 import roster_store
 import scoring
