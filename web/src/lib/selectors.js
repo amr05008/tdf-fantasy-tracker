@@ -36,7 +36,7 @@ export function buildTeamView(teams, selectedName) {
     isLast: sel.last,
     gapColorVar: sel.leader ? LEADER_VAR : MUTED,
     gapLine: sel.leader ? 'Leads by ' + secondGap.replace('+', '') : sel.gap + ' behind',
-    standingLine: ordinal(sel.rank) + ' of 6 overall · 3 riders',
+    standingLine: ordinal(sel.rank) + ' of ' + teams.length + ' overall · ' + sel.riders.length + ' riders',
     riders: sel.riders.map(r => ({
       name: r.name,
       gcNum: String(r.gc),
@@ -67,7 +67,7 @@ export function buildRiderProfile(teams, name, stageNum) {
     gcRank: '#' + r.gc,
     gcTime: r.time,
     gapGC: r.gapGC,
-    form: r.form.map((p, i) => ({ label: 'St ' + (stageNum - 2 + i), place: ordinal(p) })),
+    form: (r.form || []).map((p, i) => ({ label: 'St ' + (stageNum - 2 + i), place: ordinal(p) })),
     owned: 'Drafted by ' + hit.owner + (hit.owner === 'Aaron' ? ' (you)' : ''),
   }
 }

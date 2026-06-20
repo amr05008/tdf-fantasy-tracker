@@ -5,6 +5,11 @@ import {
 
 const { teams, draftPool, races } = sampleData
 
+const ordinalOf = (list, name) => {
+  const i = list.findIndex(t => t.name === name)
+  return ['1st', '2nd', '3rd', '4th', '5th', '6th'][i]
+}
+
 test('buildStandingsRows builds rows with subline and leader gap color', () => {
   const rows = buildStandingsRows(teams)
   expect(rows).toHaveLength(6)
@@ -71,4 +76,19 @@ test('buildRaceCards marks the viewing race and badges by status', () => {
   expect(live.badge).toEqual({ bg: '#E6F4EC', color: '#2F7D52' })
   const complete = cards.find(c => c.id === 'tdf-2025')
   expect(complete.badge).toEqual({ bg: '#F0EEE8', color: '#8C8881' })
+})
+
+test('buildTeamView standingLine uses the actual team count', () => {
+  const five = teams.slice(0, 5)
+  const view = buildTeamView(five, five[2].name)
+  expect(view.standingLine).toBe(ordinalOf(five, five[2].name) + ' of 5 overall · 3 riders')
+})
+
+test('buildRiderProfile tolerates a rider with no form field', () => {
+  const t = [{ name: 'Solo', rank: 1, total: '1:00', gap: 'Leader', leader: true, last: true,
+    riders: [{ name: 'No Form', gc: 4, time: '5:00:00', proTeam: 'T', gapGC: '+1:00',
+      role: 'Rider', nat: 'Slovenia', age: 25 }] }]
+  const rp = buildRiderProfile(t, 'No Form', 21)
+  expect(rp.form).toEqual([])
+  expect(rp.role).toBe('Rider')
 })
