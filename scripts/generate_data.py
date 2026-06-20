@@ -126,13 +126,25 @@ def resolve_active(race_id: str, stage: int) -> dict:
     return TEAM_ROSTERS.get(race_id, {})
 
 
+def _format_date_range(start: str, end: str) -> str:
+    """'2026-07-04','2026-07-26' -> 'Jul 4 – 26, 2026' (en-dash, no leading-zero days)."""
+    from datetime import datetime
+    s = datetime.strptime(start, "%Y-%m-%d")
+    e = datetime.strptime(end, "%Y-%m-%d")
+    if s.year == e.year and s.month == e.month:
+        return f"{s.strftime('%b')} {s.day} – {e.day}, {e.year}"
+    if s.year == e.year:
+        return f"{s.strftime('%b')} {s.day} – {e.strftime('%b')} {e.day}, {e.year}"
+    return f"{s.strftime('%b')} {s.day}, {s.year} – {e.strftime('%b')} {e.day}, {e.year}"
+
+
 def build_races_list() -> list:
     out = []
     for rid, rc in RACES.items():
         status = "Complete" if rc.get("is_complete") else "Upcoming"
         note = ("Won by " + rc["winner"]) if rc.get("winner") else "Upcoming"
         start, end = rc["start_date"], rc["end_date"]
-        out.append({"id": rid, "name": rc["name"], "dates": f"{start} – {end}",
+        out.append({"id": rid, "name": rc["name"], "dates": _format_date_range(start, end),
                     "stages": rc["total_stages"], "status": status,
                     "dot": rc["leader_color"], "note": note})
     return out
