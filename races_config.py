@@ -23,20 +23,6 @@ RACES = {
         "winner": "Aaron",
         "completion_date": "July 27, 2025"
     },
-    "giro-2026": {
-        "id": "giro-2026",
-        "name": "Giro d'Italia 2026",
-        "short_name": "Giro 2026",
-        "race_url": "race/giro-d-italia/2026",
-        "total_stages": 21,
-        "leader_color": "#FF69B4",  # Pink jersey (Maglia Rosa)
-        "leader_jersey_emoji": "🟣",
-        "start_date": "2026-05-09",
-        "end_date": "2026-05-31",
-        "is_complete": False,
-        "winner": None,
-        "completion_date": None
-    },
     "tdf-2026": {
         "id": "tdf-2026",
         "name": "Tour de France 2026",
@@ -51,20 +37,6 @@ RACES = {
         "winner": None,
         "completion_date": None
     },
-    "vuelta-2026": {
-        "id": "vuelta-2026",
-        "name": "Vuelta a España 2026",
-        "short_name": "Vuelta 2026",
-        "race_url": "race/vuelta-a-espana/2026",
-        "total_stages": 21,
-        "leader_color": "#DC143C",  # Red jersey (Maillot Rojo)
-        "leader_jersey_emoji": "🔴",
-        "start_date": "2026-08-22",
-        "end_date": "2026-09-13",
-        "is_complete": False,
-        "winner": None,
-        "completion_date": None
-    }
 }
 
 # Team rosters per race
@@ -97,14 +69,6 @@ TEAM_ROSTERS = {
             "rider/geraint-thomas"
         ]
     },
-    "giro-2026": {
-        # Placeholder - update with actual 2026 Giro team rosters
-        "Jeremy": [],
-        "Leo": [],
-        "Charles": [],
-        "Aaron": [],
-        "Nate": []
-    },
     "tdf-2026": {
         # Placeholder - update with actual 2026 TDF team rosters
         "Jeremy": [],
@@ -113,14 +77,6 @@ TEAM_ROSTERS = {
         "Aaron": [],
         "Nate": []
     },
-    "vuelta-2026": {
-        # Placeholder - update with actual 2026 Vuelta team rosters
-        "Jeremy": [],
-        "Leo": [],
-        "Charles": [],
-        "Aaron": [],
-        "Nate": []
-    }
 }
 
 # Default active race (used when app first loads)

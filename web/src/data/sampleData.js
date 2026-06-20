@@ -55,9 +55,7 @@ const sampleData = {
   ],
   races: [
     { id: 'tdf-2025', name: 'Tour de France 2025', dates: 'Jul 5 – 27, 2025', stages: 21, status: 'Complete', dot: '#F2C200', note: 'Won by Aaron' },
-    { id: 'giro-2026', name: "Giro d'Italia 2026", dates: 'May 9 – 31, 2026', stages: 21, status: 'Upcoming', dot: '#E83E8C', note: 'Starts May' },
     { id: 'tdf-2026', name: 'Tour de France 2026', dates: 'Jul 4 – 26, 2026', stages: 21, status: 'Live', dot: '#F2C200', note: 'Stage 11 / 21' },
-    { id: 'vuelta-2026', name: 'Vuelta a España 2026', dates: 'Aug 22 – Sep 13, 2026', stages: 21, status: 'Upcoming', dot: '#DC143C', note: 'Starts Aug' },
   ],
   stage: {
     stageNum: 11, date: 'Thu Jul 16', route: 'Pau → Luchon-Superbagnères',
