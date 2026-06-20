@@ -311,7 +311,7 @@
     {
       "id": "tdf-2025",
       "name": "Tour de France 2025",
-      "dates": "2025-07-05 – 2025-07-27",
+      "dates": "Jul 5 – 27, 2025",
       "stages": 21,
       "status": "Complete",
       "dot": "#FFD700",
@@ -320,7 +320,7 @@
     {
       "id": "tdf-2026",
       "name": "Tour de France 2026",
-      "dates": "2026-07-04 – 2026-07-26",
+      "dates": "Jul 4 – 26, 2026",
       "stages": 21,
       "status": "Upcoming",
       "dot": "#FFD700",
