@@ -19,7 +19,7 @@
       "last": false,
       "riders": [
         {
-          "name": "Lipowitz Florian",
+          "name": "Florian Lipowitz",
           "gc": 3,
           "time": "76:11:32",
           "d": 0,
@@ -30,7 +30,7 @@
           "age": 24
         },
         {
-          "name": "Onley Oscar",
+          "name": "Oscar Onley",
           "gc": 4,
           "time": "76:12:44",
           "d": 0,
@@ -41,7 +41,7 @@
           "age": 22
         },
         {
-          "name": "O'Connor Ben",
+          "name": "Ben O'Connor",
           "gc": 11,
           "time": "76:35:06",
           "d": 0,
@@ -63,7 +63,7 @@
       "last": false,
       "riders": [
         {
-          "name": "Gall Felix",
+          "name": "Felix Gall",
           "gc": 5,
           "time": "76:17:44",
           "d": 0,
@@ -74,7 +74,7 @@
           "age": 27
         },
         {
-          "name": "Vauquelin Kévin",
+          "name": "Kévin Vauquelin",
           "gc": 7,
           "time": "76:23:07",
           "d": 0,
@@ -85,7 +85,7 @@
           "age": 24
         },
         {
-          "name": "Martin Guillaume",
+          "name": "Guillaume Martin",
           "gc": 16,
           "time": "77:18:39",
           "d": 0,
@@ -107,7 +107,7 @@
       "last": false,
       "riders": [
         {
-          "name": "Kuss Sepp",
+          "name": "Sepp Kuss",
           "gc": 17,
           "time": "77:20:56",
           "d": 0,
@@ -118,7 +118,7 @@
           "age": 30
         },
         {
-          "name": "Narváez Jhonatan",
+          "name": "Jhonatan Narváez",
           "gc": 13,
           "time": "77:05:08",
           "d": 0,
@@ -129,7 +129,7 @@
           "age": 28
         },
         {
-          "name": "Healy Ben",
+          "name": "Ben Healy",
           "gc": 9,
           "time": "76:28:34",
           "d": 0,
@@ -151,7 +151,7 @@
       "last": false,
       "riders": [
         {
-          "name": "Jegat Jordan",
+          "name": "Jordan Jegat",
           "gc": 10,
           "time": "76:33:14",
           "d": 0,
@@ -162,7 +162,7 @@
           "age": 26
         },
         {
-          "name": "Johannessen Tobias Halland",
+          "name": "Halland Johannessen Tobias",
           "gc": 6,
           "time": "76:20:46",
           "d": 0,
@@ -173,7 +173,7 @@
           "age": 25
         },
         {
-          "name": "Vlasov Aleksandr",
+          "name": "Aleksandr Vlasov",
           "gc": 27,
           "time": "78:16:47",
           "d": 0,
@@ -195,7 +195,7 @@
       "last": true,
       "riders": [
         {
-          "name": "Roglič Primož",
+          "name": "Primož Roglič",
           "gc": 8,
           "time": "76:26:02",
           "d": 0,
@@ -206,7 +206,7 @@
           "age": 35
         },
         {
-          "name": "Paret-Peintre Valentin",
+          "name": "Valentin Paret-Peintre",
           "gc": 41,
           "time": "78:47:37",
           "d": 0,
@@ -217,7 +217,7 @@
           "age": 24
         },
         {
-          "name": "Thomas Geraint",
+          "name": "Geraint Thomas",
           "gc": 58,
           "time": "79:15:29",
           "d": 0,
@@ -232,77 +232,77 @@
   ],
   "draftPool": [
     {
-      "name": "Lipowitz Florian",
+      "name": "Florian Lipowitz",
       "team": "Red Bull - BORA - hansgrohe",
       "role": "Rider"
     },
     {
-      "name": "Onley Oscar",
+      "name": "Oscar Onley",
       "team": "Team Picnic PostNL",
       "role": "Rider"
     },
     {
-      "name": "O'Connor Ben",
+      "name": "Ben O'Connor",
       "team": "Team Jayco AlUla",
       "role": "Rider"
     },
     {
-      "name": "Gall Felix",
+      "name": "Felix Gall",
       "team": "Decathlon AG2R La Mondiale Team",
       "role": "Rider"
     },
     {
-      "name": "Vauquelin Kévin",
+      "name": "Kévin Vauquelin",
       "team": "Arkéa - B&B Hotels",
       "role": "Rider"
     },
     {
-      "name": "Martin Guillaume",
+      "name": "Guillaume Martin",
       "team": "Groupama - FDJ",
       "role": "Rider"
     },
     {
-      "name": "Kuss Sepp",
+      "name": "Sepp Kuss",
       "team": "Team Visma | Lease a Bike",
       "role": "Rider"
     },
     {
-      "name": "Narváez Jhonatan",
+      "name": "Jhonatan Narváez",
       "team": "UAE Team Emirates - XRG",
       "role": "Rider"
     },
     {
-      "name": "Healy Ben",
+      "name": "Ben Healy",
       "team": "EF Education - EasyPost",
       "role": "Rider"
     },
     {
-      "name": "Jegat Jordan",
+      "name": "Jordan Jegat",
       "team": "TotalEnergies",
       "role": "Rider"
     },
     {
-      "name": "Johannessen Tobias Halland",
+      "name": "Halland Johannessen Tobias",
       "team": "Uno-X Mobility",
       "role": "Rider"
     },
     {
-      "name": "Vlasov Aleksandr",
+      "name": "Aleksandr Vlasov",
       "team": "Red Bull - BORA - hansgrohe",
       "role": "Rider"
     },
     {
-      "name": "Roglič Primož",
+      "name": "Primož Roglič",
       "team": "Red Bull - BORA - hansgrohe",
       "role": "Rider"
     },
     {
-      "name": "Paret-Peintre Valentin",
+      "name": "Valentin Paret-Peintre",
       "team": "Soudal Quick-Step",
       "role": "Rider"
     },
     {
-      "name": "Thomas Geraint",
+      "name": "Geraint Thomas",
       "team": "INEOS Grenadiers",
       "role": "Rider"
     }
@@ -333,26 +333,26 @@
     "route": "Mantes-la-Ville → Paris (Champs-Élysées)",
     "type": "Flat",
     "km": "132.3 km",
-    "winner": "van Aert Wout",
+    "winner": "Wout van Aert",
     "winnerTeam": "Team Visma | Lease a Bike",
     "winnerTime": "3:07:30"
   },
   "movers": [],
   "yourToday": [
     {
-      "name": "Lipowitz Florian",
+      "name": "Florian Lipowitz",
       "place": "#3",
       "gap": "+0:11:00",
       "note": "Holds GC position"
     },
     {
-      "name": "Onley Oscar",
+      "name": "Oscar Onley",
       "place": "#4",
       "gap": "+0:12:12",
       "note": "Holds GC position"
     },
     {
-      "name": "O'Connor Ben",
+      "name": "Ben O'Connor",
       "place": "#11",
       "gap": "+0:34:34",
       "note": "Holds GC position"

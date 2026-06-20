@@ -46,6 +46,15 @@ def _your_note(d: int) -> str:
     return "Holds GC position"
 
 
+def _format_rider_name(name: str) -> str:
+    """PCS gives names as 'Lastname Firstname' (the given name is the last token);
+    reorder to 'Firstname Lastname' for display. 'van Aert Wout' -> 'Wout van Aert'."""
+    parts = name.split()
+    if len(parts) < 2:
+        return name
+    return parts[-1] + " " + " ".join(parts[:-1])
+
+
 def build_race_data(*, race_id, race_name, total_stages, stage_num, gc, prev_gc,
                     stage_details, active_by_participant, races_list, updated, you="Aaron"):
     standings = scoring.compute_standings(active_by_participant, gc)
@@ -69,7 +78,7 @@ def build_race_data(*, race_id, race_name, total_stages, stage_num, gc, prev_gc,
             pr, rk = entry.get("prev_rank"), entry.get("rank")
             d = (pr - rk) if (isinstance(pr, int) and isinstance(rk, int)) else 0
             riders.append({
-                "name": r["name"], "gc": r["gc"], "time": r["time"], "d": d,
+                "name": _format_rider_name(r["name"]), "gc": r["gc"], "time": r["time"], "d": d,
                 "proTeam": r["proTeam"], "gapGC": gap_gc, "role": "Rider",
                 "nat": code_to_name(entry.get("nationality", "")), "age": entry.get("age"),
             })
@@ -106,7 +115,7 @@ def build_race_data(*, race_id, race_name, total_stages, stage_num, gc, prev_gc,
         "route": f"{stage_details.get('departure', '')} → {stage_details.get('arrival', '')}",
         "type": label_stage_type(stage_details),
         "km": (f"{stage_details['distance']} km" if stage_details.get("distance") else ""),
-        "winner": stage_details.get("winner_name", ""),
+        "winner": _format_rider_name(stage_details.get("winner_name", "")),
         "winnerTeam": stage_details.get("winner_team", ""),
         "winnerTime": stage_details.get("winner_time", ""),
     }

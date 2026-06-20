@@ -35,7 +35,7 @@ def test_build_race_data_shape_and_enrichment():
     assert "form" not in onley and onley["role"] == "Rider"
     assert onley["gapGC"].startswith("+")
     # stage header + meta
-    assert data["stage"]["winner"] == "van Aert Wout"
+    assert data["stage"]["winner"] == "Wout van Aert"  # reordered from PCS 'van Aert Wout'
     assert "Paris" in data["stage"]["route"]
     assert data["meta"]["progressPct"] == "100%" and data["meta"]["raceId"] == "tdf-2025"
     # prev_gc == gc -> no movement
