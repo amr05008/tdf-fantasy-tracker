@@ -41,3 +41,27 @@ def fetch_rider(slug: str) -> dict:
     """Fetch + parse a rider page."""
     html = pcs_fetch.get_html(slug)
     return parse_rider(slug, html)
+
+
+def parse_stage_details(html: str) -> dict:
+    """Return the stage header (route, distance, type, winner) from a stage page."""
+    data = Stage("race/_/stage-1", html=html, update_html=False).parse()
+    results = data.get("results") or []
+    winner = results[0] if results else {}
+    return {
+        "date": data.get("date", ""),
+        "departure": data.get("departure", ""),
+        "arrival": data.get("arrival", ""),
+        "distance": data.get("distance"),
+        "stage_type": data.get("stage_type", ""),
+        "profile_icon": data.get("profile_icon", ""),
+        "winner_name": winner.get("rider_name", ""),
+        "winner_team": winner.get("team_name", ""),
+        "winner_time": winner.get("time", ""),
+    }
+
+
+def fetch_stage_details(race_url: str, stage_number: int) -> dict:
+    """Fetch + parse the stage header for a stage."""
+    html = pcs_fetch.get_html(f"{race_url}/stage-{stage_number}")
+    return parse_stage_details(html)
