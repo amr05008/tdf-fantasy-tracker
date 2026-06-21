@@ -42,6 +42,14 @@ def add_rider(roster: dict, participant: str, stint: dict) -> None:
     roster.setdefault(participant, []).append(stint)
 
 
+def remove_participant(roster: dict, participant: str) -> None:
+    """Remove a participant (team) entirely. Raises if they're not in the roster
+    (so a misspelled name is caught rather than silently no-op'd)."""
+    if participant not in roster:
+        raise ValueError(f"No participant named {participant!r} in the roster")
+    del roster[participant]
+
+
 def swap_rider(roster: dict, participant: str, out_slug: str,
                in_stint: dict, effective_stage: int) -> None:
     """Close the outgoing rider at effective_stage-1, open the incoming at effective_stage."""

@@ -25,6 +25,18 @@ Drive multi-rider entry with a short Python snippet that `roster_store.load(race
 roster, loops the resolved riders into it via `add_rider`, calls
 `roster_store.save(race_id, roster)`, then re-run `show`.
 
+## Adding a new participant (a new person joins the league)
+A team is created simply by using a new participant name — `add_rider(roster, "Sarah", stint)`
+auto-creates "Sarah". Add their three riders the same way as the initial draft (each with
+`from_stage: 1`), then save. **Constraint:** `validate` requires exactly 3 active riders at
+*every* stage, so a new participant must be added **before the race starts** (or with all
+three riders' `from_stage: 1`). Someone joining *mid-race* (partway in) would fail validation
+for the earlier stages — flag that to the owner rather than forcing it.
+
+## Removing a participant (someone leaves the league)
+Call `roster_store.remove_participant(roster, participant)` then `save`. It raises if the name
+isn't found, so confirm the exact name first via `show` (don't guess a misspelling).
+
 ## Swapping an injured rider (Option B)
 Ask for: participant, outgoing rider, replacement, and the **effective stage**.
 Call `roster_store.swap_rider(roster, participant, out_slug, in_stint, effective_stage)`
@@ -39,6 +51,15 @@ NOT save — surface them and fix.
 
 ## Always show a before/after
 After saving, run `python draft.py show` again and present the diff so the owner can eyeball it.
+
+## Publishing changes to the live app
+Editing the roster only updates `data/rosters.json`. The deployed app reads
+`web/public/data/<raceId>.json`, so to make roster changes visible you must regenerate and
+deploy: `python scripts/generate_data.py <race_id>` (run from a residential network —
+procyclingstats is behind Cloudflare), then commit `web/public/data/<race_id>.json` and push
+(Vercel redeploys). Note this only produces standings once the race has GC data; for a
+not-yet-started race the app shows the Upcoming notice regardless. Remind the owner of this
+step after a roster edit.
 
 ## When unsure
 If a name is ambiguous or won't resolve, ask the owner — do not guess a slug into the store.

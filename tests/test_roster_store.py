@@ -1,4 +1,5 @@
 import json
+import pytest
 import roster_store as rs
 
 
@@ -51,3 +52,15 @@ def test_save_and_load_roundtrip(tmp_path):
 
 def test_load_missing_file_returns_empty(tmp_path):
     assert rs.load("tdf-2026", path=str(tmp_path / "nope.json")) == {}
+
+
+def test_remove_participant_drops_only_that_team():
+    roster = {"Aaron": _team()["Aaron"], "Sarah": _team()["Aaron"]}
+    rs.remove_participant(roster, "Sarah")
+    assert "Sarah" not in roster
+    assert "Aaron" in roster
+
+
+def test_remove_participant_unknown_raises():
+    with pytest.raises(ValueError):
+        rs.remove_participant({"Aaron": []}, "Nobody")
