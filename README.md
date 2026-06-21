@@ -2,12 +2,12 @@
 
 A Streamlit web application for tracking fantasy cycling competition results across multiple Grand Tours with real-time data from procyclingstats.com.
 
-> **New web app (React + Vite) — go-forward UI:** a redesigned, mobile-first frontend lives in [`web/`](web/), deployed on **Vercel** (`tdf-fantasy-tracker.vercel.app`). It currently runs on placeholder data; wiring the real procyclingstats feed is a planned phase-2 step. See [web/README.md](web/README.md). The Streamlit app documented below remains available.
+> **Web app (React + Vite) — go-forward UI:** the mobile-first frontend in [`web/`](web/) is deployed on **Vercel** (`tdf-fantasy-tracker.vercel.app`) and now serves **real data**: it defaults to the completed **Tour de France 2025** standings (generated from procyclingstats), and an upcoming race like **TDF 2026** shows an "Upcoming" notice until it starts. The app is **Tour de France only**. See [web/README.md](web/README.md) for the data flow and "Managing Your League" below for roster entry. The Streamlit app documented below remains available.
 
 ## Features
 
-- **Multi-Race Support**: Switch between Tour de France, Giro d'Italia, and Vuelta a España
-- **Dynamic Leader Jersey Colors**: Yellow (TDF), Pink (Giro), Red (Vuelta)
+- **Tour de France focus**: tracks the Tour de France (2025 complete, 2026 upcoming)
+- **Yellow Jersey styling**: the leader is highlighted in TDF yellow
 - **Real-time Race Data**: Automatic scoring from procyclingstats.com API
 - **Shareable URLs**: Direct links to specific races (e.g., `?race=tdf-2025`)
 - **Interactive Charts**: Stage-by-stage performance analysis
@@ -57,11 +57,18 @@ The app displays current standings for 5 participants:
 
 ## Supported Races
 
-Currently configured Grand Tours:
-- **Tour de France 2025** ✅ (Complete - Winner: Aaron)
-- **Giro d'Italia 2026** (Upcoming)
-- **Tour de France 2026** (Upcoming)
-- **Vuelta a España 2026** (Upcoming)
+Currently configured (Tour de France only):
+- **Tour de France 2025** ✅ (Complete — Winner: Aaron)
+- **Tour de France 2026** (Upcoming — starts Jul 4, 2026)
+
+## Managing Your League
+
+The draft happens offline (over text message); the app only *tracks* results. To enter or edit them:
+
+- **Enter / edit rosters** — `python draft.py draft` (add participants + their 3 riders), `python draft.py swap` (mid-race injury swap; history-preserving), `python draft.py show`. Each rider name is resolved to the correct procyclingstats rider and validated before saving. You can also describe changes in natural language to Claude Code via the **`/draft` skill** — e.g. *"Nate swapped Roglič for Almeida effective stage 12"*, *"add a new team for Sarah: Pogačar, Vingegaard, Evenepoel"*, or *"remove Dave's team"*. Rosters live in `data/rosters.json` (don't hand-edit — go through the tooling, which enforces exactly 3 active riders per team per stage).
+- **Publish to the live app** — `python scripts/generate_data.py <race-id>` writes `web/public/data/<race-id>.json` from real procyclingstats data; commit and push to deploy (Vercel redeploys). Run it **from a residential network** — procyclingstats is behind a Cloudflare challenge that datacenter IPs hit hardest.
+
+See [CLAUDE.md](CLAUDE.md) (the "Roster Management + PCS Data Layer" section) for the full backend details.
 
 ## Data Source
 
