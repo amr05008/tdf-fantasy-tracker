@@ -78,7 +78,7 @@ The app automatically fetches real-time race data from **procyclingstats.com**:
 - Fantasy team scores calculated by summing rider GC times
 - Automatic handling of DNF/DNS riders
 
-**Configuration**: Team rosters and race metadata are defined in `races_config.py`. Rosters can also be managed via a published Google Sheet — see [GOOGLE_SHEETS_SETUP.md](GOOGLE_SHEETS_SETUP.md) for setup instructions. See [CLAUDE.md](CLAUDE.md) for full configuration details.
+**Configuration**: Race metadata is defined in `races_config.py`; fantasy rosters live in `data/rosters.json` (managed via the draft tooling — see "Managing Your League" above). See [CLAUDE.md](CLAUDE.md) for full configuration details.
 
 ## Technology Stack
 
@@ -106,8 +106,6 @@ This app is deployed on **Streamlit Cloud** with automatic deployments from GitH
 - `.streamlit/config.toml` for server configuration
 - `app.py` as the main application file
 
-See [STREAMLIT_MIGRATION.md](STREAMLIT_MIGRATION.md) for complete migration documentation.
-
 ### Alternative Platforms
 
 The app can also be deployed on:
@@ -118,12 +116,9 @@ The app can also be deployed on:
 
 ## Project Documentation
 
-- [CLAUDE.md](CLAUDE.md) - Project overview and architecture
-- [GOOGLE_SHEETS_SETUP.md](GOOGLE_SHEETS_SETUP.md) - Guide for managing rosters via Google Sheets
-- [MULTI_RACE_IMPLEMENTATION_PLAN.md](MULTI_RACE_IMPLEMENTATION_PLAN.md) - Multi-race feature implementation guide
-- [MIGRATION_SUMMARY.md](MIGRATION_SUMMARY.md) - Google Sheets → procyclingstats API migration details
-- [races_config.py](races_config.py) - Multi-race configuration file
-- [STREAMLIT_MIGRATION.md](STREAMLIT_MIGRATION.md) - Deployment platform migration guide
+- [CLAUDE.md](CLAUDE.md) - Project overview and architecture (incl. the roster + PCS data layer)
+- [web/README.md](web/README.md) - React app and the live data flow
+- [races_config.py](races_config.py) - Race configuration
 
 ## License
 

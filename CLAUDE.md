@@ -239,10 +239,6 @@ No database required - procyclingstats.com serves as the data source via API scr
 **Documentation:**
 - `README.md`: User-facing documentation
 - `CLAUDE.md`: This file - project guidance for Claude Code
-- `GOOGLE_SHEETS_SETUP.md`: Setup guide for managing rosters via Google Sheets
-- `MIGRATION_GUIDE.md`: Complete guide for Google Sheets → API migration
-- `GOOGLE_SHEETS_FORMAT.md`: Legacy Google Sheets data format (deprecated)
-- `BACKUP_STEPS.md`: Git backup instructions for Replit
 - `replit.md`: Comprehensive development history and system architecture notes
 
 **Testing Files:**
@@ -296,7 +292,6 @@ RACE_CONFIG = {
 - Added `api_client.py` for API interactions
 - Created `team_config.py` for roster configuration
 - Updated `app.py` to use API data structure
-- See `MIGRATION_SUMMARY.md` for complete migration details
 
 **November 2, 2025**: Multi-Race Implementation
 - Created `races_config.py` with support for 4 Grand Tours (TDF 2025, Giro 2026, TDF 2026, Vuelta 2026)
@@ -309,4 +304,5 @@ RACE_CONFIG = {
   - Removed old Replit dependency files (`pyproject.toml`, `uv.lock`)
 - Added friendly message for upcoming races (no error spam)
 - Improved mobile responsiveness with horizontal race selector
-- See `MULTI_RACE_IMPLEMENTATION_PLAN.md` for implementation details
+
+> Note: Giro + Vuelta were later removed (2026-06) — the app is now Tour de France only.
