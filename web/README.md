@@ -1,4 +1,4 @@
-# Sunshine Fantasy (web)
+# Fantasy Tour Tracker (web)
 
 React + Vite recreation of the `design_handoff_tdf2026` prototype.
 
